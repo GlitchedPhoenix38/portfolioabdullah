@@ -31,6 +31,9 @@
   --shell: min(1200px, calc(100% - 2 * var(--gutter)));
   --ease: cubic-bezier(.22, .68, .2, 1);
   --ease-out: cubic-bezier(.16, 1, .3, 1);
+  --ease-spring: cubic-bezier(.25, .46, .45, .94);
+  --ease-cinematic: cubic-bezier(.25, .1, .25, 1);
+  --ease-expo-out: cubic-bezier(.19, 1, .22, 1);
   --header-h: 68px;
 }
 
@@ -130,9 +133,10 @@ html { -webkit-tap-highlight-color: rgba(139, 104, 255, .25); }
   z-index: 0;
   pointer-events: none;
   opacity: 0;
-  background: radial-gradient(560px circle at var(--sx, 50%) var(--sy, 30%),
-              rgba(139, 104, 255, .075), transparent 62%);
-  transition: opacity .6s ease;
+  background: radial-gradient(680px circle at var(--sx, 50%) var(--sy, 30%),
+              rgba(139, 104, 255, .09), rgba(124, 212, 238, .05) 40%, transparent 70%);
+  transition: opacity .8s var(--ease-cinematic);
+  mix-blend-mode: screen;
 }
 @media (pointer: fine) { .spotlight { opacity: 1; } }
 
@@ -254,19 +258,29 @@ html { -webkit-tap-highlight-color: rgba(139, 104, 255, .25); }
   border: 1px solid transparent;
   border-radius: 3px;
   cursor: pointer;
-  transition: background-color .18s ease, border-color .18s ease, color .18s ease;
+  transition: background-color .25s var(--ease-cinematic), border-color .25s var(--ease-cinematic), color .25s var(--ease-cinematic), box-shadow .4s var(--ease-cinematic), transform .4s var(--ease-cinematic);
 }
 .btn-primary {
   background: var(--ink);
   color: var(--bg0);
 }
-.btn-primary:hover { background: var(--violet); color: #0C0817; }
+.btn-primary:hover { 
+  background: linear-gradient(90deg, var(--violet), var(--ice)); 
+  color: #0C0817; 
+  box-shadow: 0 20px 60px -30px rgba(139, 104, 255, .8);
+}
 
 .btn-ghost { border-color: var(--hair-strong); color: var(--ink); }
 .btn-ghost:hover { border-color: var(--ice); color: var(--ice); }
 
-.btn-accent { background: var(--violet); color: #0C0817; }
-.btn-accent:hover { background: var(--ice); }
+.btn-accent { 
+  background: linear-gradient(90deg, var(--violet), var(--violet-soft)); 
+  color: #0C0817; 
+}
+.btn-accent:hover { 
+  background: linear-gradient(90deg, var(--ice), var(--violet-soft)); 
+  box-shadow: 0 20px 60px -30px rgba(124, 212, 238, .7);
+}
 
 .btn-ghost-light { border-color: rgba(233, 235, 242, .3); color: var(--ink); }
 .btn-ghost-light:hover { border-color: var(--ice); color: var(--ice); }
@@ -311,11 +325,17 @@ html { -webkit-tap-highlight-color: rgba(139, 104, 255, .25); }
   z-index: 0;
   pointer-events: none;
   background:
-    radial-gradient(900px 480px at 78% 18%, rgba(91, 63, 214, .17), transparent 65%),
-    radial-gradient(700px 420px at 12% 82%, rgba(124, 212, 238, .07), transparent 60%);
+    radial-gradient(1200px 640px at 78% 12%, rgba(91, 63, 214, .20), transparent 70%),
+    radial-gradient(900px 560px at 8% 88%, rgba(124, 212, 238, .09), transparent 65%);
+  animation: heroGlow 8s var(--ease-spring) infinite alternate;
 }
 
-.hero-inner { position: relative; z-index: 1; }
+@keyframes heroGlow {
+  0% { opacity: .9; transform: scale(1); }
+  100% { opacity: 1; transform: scale(1.02); }
+}
+
+.hero-inner { position: relative; z-index: 1; will-change: transform; transition: transform .2s ease-out; }
 
 .hero-eyebrow {
   font-family: var(--font-mono);
@@ -419,14 +439,18 @@ html { -webkit-tap-highlight-color: rgba(139, 104, 255, .25); }
     "plate body"
     "notes notes";
   gap: 0 clamp(24px, 3.4vw, 52px);
-  background: var(--panel);
+  background: radial-gradient(800px 400px at 50% 0%, rgba(139, 104, 255, .08), transparent 70%), var(--panel);
   border: 1px solid var(--hair);
   border-radius: 6px;
   padding: clamp(22px, 3vw, 36px);
   transform-style: preserve-3d;
-  transition: border-color .3s ease, transform .45s var(--ease);
+  transition: border-color .4s var(--ease-cinematic), transform .6s var(--ease-cinematic), box-shadow .6s var(--ease-cinematic);
+  overflow: hidden;
 }
-.project-card:hover { border-color: var(--hair-strong); }
+.project-card:hover { 
+  border-color: var(--hair-strong); 
+  box-shadow: 0 40px 80px -60px rgba(139, 104, 255, .5), 0 30px 60px -40px rgba(124, 212, 238, .2);
+}
 
 .card-sheen {
   position: absolute;
@@ -434,9 +458,10 @@ html { -webkit-tap-highlight-color: rgba(139, 104, 255, .25); }
   border-radius: inherit;
   pointer-events: none;
   opacity: 0;
-  transition: opacity .35s ease;
-  background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%),
-              rgba(139, 104, 255, .1), transparent 55%);
+  transition: opacity .5s var(--ease-cinematic);
+  background: radial-gradient(520px circle at var(--mx, 50%) var(--my, 50%),
+              rgba(139, 104, 255, .12), rgba(124, 212, 238, .08) 35%, transparent 65%);
+  mix-blend-mode: screen;
 }
 .project-card:hover .card-sheen { opacity: 1; }
 
@@ -472,12 +497,27 @@ html { -webkit-tap-highlight-color: rgba(139, 104, 255, .25); }
   grid-area: plate;
   align-self: start;
   background:
-    radial-gradient(320px 200px at 50% 42%, rgba(91, 63, 214, .16), transparent 70%),
+    radial-gradient(320px 200px at 50% 42%, rgba(91, 63, 214, .18), transparent 70%),
     var(--bg1);
   border: 1px solid var(--hair);
   border-radius: 4px;
   overflow: hidden;
   transform: translateZ(24px);
+  position: relative;
+}
+.card-plate::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, transparent 30%, rgba(124, 212, 238, .08) 50%, transparent 70%);
+  transform: translateX(-100%);
+  animation: plateSweep 4s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes plateSweep {
+  0% { transform: translateX(-100%); }
+  50% { transform: translateX(100%); }
+  100% { transform: translateX(100%); }
 }
 .motif { width: 100%; height: auto; }
 
@@ -858,37 +898,39 @@ html { -webkit-tap-highlight-color: rgba(139, 104, 255, .25); }
 
 .js [data-hero-reveal] {
   opacity: 0;
-  animation: heroRise .8s var(--ease-out) both;
+  animation: heroRise 1s var(--ease-expo-out) both;
   animation-delay: var(--hd, 0s);
 }
 .js .hero-title .line > span {
-  animation: lineMask .9s var(--ease-out) both;
+  animation: lineMask 1.2s var(--ease-expo-out) both;
   animation-delay: inherit;
 }
 @keyframes heroRise {
-  from { opacity: 0; transform: translateY(18px); }
-  to { opacity: 1; transform: none; }
+  from { opacity: 0; transform: translateY(28px) scale(0.98); filter: blur(4px); }
+  to { opacity: 1; transform: none; filter: blur(0); }
 }
 @keyframes lineMask {
-  from { transform: translateY(110%); }
-  to { transform: none; }
+  from { transform: translateY(120%); filter: blur(6px); }
+  to { transform: none; filter: blur(0); }
 }
 
 .js .reveal {
   opacity: 0;
-  transform: translateY(22px);
-  transition: opacity .7s var(--ease-out), transform .7s var(--ease-out);
+  transform: translateY(32px) scale(0.98);
+  filter: blur(2px);
+  transition: opacity .9s var(--ease-expo-out), transform .9s var(--ease-expo-out), filter .9s var(--ease-expo-out);
   transition-delay: var(--rd, 0s);
 }
-.js .reveal.is-in { opacity: 1; transform: none; }
+.js .reveal.is-in { opacity: 1; transform: none; filter: blur(0); }
 
 .js .clip-reveal { overflow: hidden; }
 .js .clip-reveal > .clip-inner {
   display: block;
-  transform: translateY(112%);
-  transition: transform .8s var(--ease-out);
+  transform: translateY(115%) skewY(2deg);
+  filter: blur(3px);
+  transition: transform 1s var(--ease-expo-out), filter 1s var(--ease-expo-out);
 }
-.js .clip-reveal.is-in > .clip-inner { transform: none; }
+.js .clip-reveal.is-in > .clip-inner { transform: none; filter: blur(0); }
 
 .js .draw-rule {
   transform: scaleX(0);
@@ -983,8 +1025,11 @@ html { -webkit-tap-highlight-color: rgba(139, 104, 255, .25); }
     transition-duration: .01ms !important;
   }
   .js [data-hero-reveal],
-  .js .reveal { opacity: 1 !important; transform: none !important; }
-  .js .clip-reveal > .clip-inner { transform: none !important; }
+  .js .reveal { opacity: 1 !important; transform: none !important; filter: none !important; }
+  .js .clip-reveal > .clip-inner { transform: none !important; filter: none !important; }
   .js .draw-rule { transform: scaleX(1) !important; }
   .spotlight { display: none; }
+  .card-plate::after { animation: none; }
+  .hero-glow { animation: none; }
+  .hero-inner { transform: none !important; }
 }

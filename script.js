@@ -86,6 +86,7 @@
   /* Clip-reveal headings: wrap content so the mask animates without
      touching the semantic text. Done in JS so no-JS keeps plain markup. */
   doc.querySelectorAll(".clip-reveal").forEach(function (el) {
+    if (el.querySelector(".clip-inner")) return;
     var inner = doc.createElement("span");
     inner.className = "clip-inner";
     while (el.firstChild) inner.appendChild(el.firstChild);
@@ -96,14 +97,19 @@
     var revealables = [];
     doc.querySelectorAll(".project").forEach(function (el, i) {
       el.classList.add("reveal");
-      el.style.setProperty("--rd", (Math.min(i, 3) * 0.09) + "s");
+      el.style.setProperty("--rd", (Math.min(i, 4) * 0.08) + "s");
       revealables.push(el);
     });
-    doc.querySelectorAll(".principles li, .stack-group, .section-head").forEach(function (el) {
+    doc.querySelectorAll(".principles li, .stack-group, .section-head").forEach(function (el, i) {
       el.classList.add("reveal");
+      el.style.setProperty("--rd", (Math.min(i, 3) * 0.06) + "s");
       revealables.push(el);
     });
-    doc.querySelectorAll(".clip-reveal, .lab-list li").forEach(function (el) {
+    doc.querySelectorAll(".clip-reveal, .lab-list li, .about-lead, .about-copy p").forEach(function (el, i) {
+      if (!el.classList.contains("reveal")) {
+        el.classList.add("reveal");
+        el.style.setProperty("--rd", (Math.min(i, 2) * 0.05) + "s");
+      }
       revealables.push(el);
     });
 
@@ -114,8 +120,12 @@
           revealObserver.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.12, rootMargin: "0px 0px -8% 0px" });
-    revealables.forEach(function (el) { revealObserver.observe(el); });
+    }, { threshold: 0.08, rootMargin: "0px 0px -10% 0px" });
+    revealables.forEach(function (el) { 
+      if (!el.classList.contains("is-in")) {
+        revealObserver.observe(el); 
+      }
+    });
   }
 
   /* ------------------------------------------- engineering notes ------- */
@@ -136,8 +146,8 @@
     var sxTarget = 0, syTarget = 0, sx = 0, sy = 0, spotRunning = false;
 
     function spotFrame() {
-      sx += (sxTarget - sx) * 0.12;
-      sy += (syTarget - sy) * 0.12;
+      sx += (sxTarget - sx) * 0.08;
+      sy += (syTarget - sy) * 0.08;
       if (spotlight) {
         spotlight.style.setProperty("--sx", sx + "px");
         spotlight.style.setProperty("--sy", sy + "px");
@@ -160,15 +170,15 @@
 
       function apply() {
         card.style.transform =
-          "perspective(1100px) rotateX(" + tX.toFixed(2) + "deg) rotateY(" + tY.toFixed(2) + "deg)";
+          "perspective(1200px) rotateX(" + tX.toFixed(2) + "deg) rotateY(" + tY.toFixed(2) + "deg) translateZ(10px)";
         rafId = null;
       }
       card.addEventListener("pointermove", function (e) {
         var r = card.getBoundingClientRect();
         var px = (e.clientX - r.left) / r.width;
         var py = (e.clientY - r.top) / r.height;
-        tX = (0.5 - py) * 5;
-        tY = (px - 0.5) * 6;
+        tX = (0.5 - py) * 6;
+        tY = (px - 0.5) * 8;
         card.style.setProperty("--mx", (px * 100).toFixed(1) + "%");
         card.style.setProperty("--my", (py * 100).toFixed(1) + "%");
         if (!rafId) rafId = window.requestAnimationFrame(apply);
@@ -185,14 +195,31 @@
         var r = btn.getBoundingClientRect();
         var dx = e.clientX - (r.left + r.width / 2);
         var dy = e.clientY - (r.top + r.height / 2);
-        btn.style.transform = "translate(" + (dx * 0.14).toFixed(1) + "px," + (dy * 0.2).toFixed(1) + "px)";
+        btn.style.transform = "translate(" + (dx * 0.18).toFixed(1) + "px," + (dy * 0.26).toFixed(1) + "px) scale(1.02)";
       });
       btn.addEventListener("pointerleave", function () {
-        btn.style.transition = "transform .35s cubic-bezier(.22,.68,.2,1)";
+        btn.style.transition = "transform .4s cubic-bezier(.25,.46,.45,.94)";
         btn.style.transform = "";
-        window.setTimeout(function () { btn.style.transition = ""; }, 360);
+        window.setTimeout(function () { btn.style.transition = ""; }, 450);
       });
     });
+    
+    /* subtle parallax on hero content */
+    var heroInner = doc.querySelector(".hero-inner");
+    if (heroInner) {
+      window.addEventListener("pointermove", function (e) {
+        var cx = window.innerWidth / 2;
+        var cy = window.innerHeight / 2;
+        var dx = (e.clientX - cx) / cx;
+        var dy = (e.clientY - cy) / cy;
+        heroInner.style.transform = "translate3d(" + (dx * 10).toFixed(2) + "px, " + (dy * 8).toFixed(2) + "px, 0) scale(1.01)";
+      }, { passive: true });
+      heroInner.addEventListener("pointerleave", function() {
+        heroInner.style.transition = "transform .8s cubic-bezier(.19,1,.22,1)";
+        heroInner.style.transform = "";
+        setTimeout(function() { heroInner.style.transition = ""; }, 850);
+      });
+    }
   }
 
   /* --------------------------------------------- signal field --------- */
