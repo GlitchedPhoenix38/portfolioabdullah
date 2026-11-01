@@ -53,3 +53,4 @@ Lovable preview keep serving from `/`.
 ## Notes
 
 No backend, no database, no trackers. Fonts load from Google Fonts with system fallbacks.
+"# portfolio" 
