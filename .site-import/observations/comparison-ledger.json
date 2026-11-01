@@ -1,0 +1,834 @@
+[
+  {
+    "site": "source",
+    "layout": "desktop",
+    "control": "hero CTA",
+    "status": "pass",
+    "destination": "https://glitchedphoenix38.github.io/portfolioabdullah/#work"
+  },
+  {
+    "site": "source",
+    "layout": "desktop",
+    "control": "notes-mustaqeem",
+    "status": "pass",
+    "visibleText": "How it is built\nMic \u2192 openWakeWord (custom embedding from recorded wake phrases) \u2192 faster-whisper STT \u2192 AI \u2192 piper-tts reply \u2192 back to listening.\nActions go through a fixed registry of structured tools \u2014 open apps, system info, media and volume control, web search. No raw shell access is ever exposed.\nShutdown, reboot and delete require explicit confirmation; file access is confined to the home directory (own security module).\nProvider-agnostic brain: any OpenAI-compatible endpoint via base URL + key + model, plus an offline rule-based fallback and optional SQLite history.\nFive test suites in the repository cover AI, config, memory, security and tools.",
+    "scroll": 1712
+  },
+  {
+    "site": "source",
+    "layout": "desktop",
+    "control": "notes-foziscribe",
+    "status": "pass",
+    "visibleText": "How it is built\nTwo modes: fast (small model, ~0.5\u202fGB VRAM) and accurate (large-v3-turbo, near large-v3 accuracy, ~8\u00d7 faster).\nGraceful device fallback: CUDA + float16 \u2192 CUDA + int8 \u2192 CPU + int8, so transcription keeps going without a GPU.\nVoice-activity detection skips silence; long files (1\u20132+ hours) are processed in chunks.\nExports copy-to-clipboard, .txt and .srt; the last ten sessions stay reloadable in the UI.\nWritten and tuned for a 6\u202fGB RTX 4050 laptop; the README documents the full Arch Linux + CUDA setup path.",
+    "scroll": 1487
+  },
+  {
+    "site": "source",
+    "layout": "desktop",
+    "control": "notes-tta",
+    "status": "pass",
+    "visibleText": "How it is built\nDeterministic chunker: paragraph \u2192 sentence \u2192 clause boundaries, so every chunk fits the engine and output order is preserved.\nStreaming 24\u202fkHz mono PCM concatenation \u2014 long jobs never hold the full waveform in memory.\nJob manager serialises GPU work; synthesis requests queue instead of colliding.\n86 backend tests (API + chunker) and 22 jsdom frontend tests, plus a smoke test script and an architecture decision document.\nVerified on hardware: Python 3.12, kokoro 0.9.4, torch CUDA build (recorded in the repo\u2019s architecture notes).",
+    "scroll": 3223
+  },
+  {
+    "site": "source",
+    "layout": "desktop",
+    "control": "notes-localmind",
+    "status": "pass",
+    "visibleText": "How it is built\nOne workflow, two runtimes: the same prompt/settings route to a local A1111 Stable Diffusion instance (port 7860) or to cloud providers \u2014 OpenAI, Replicate, Leonardo.\nFastAPI routers separate the two paths (sd_api for local, cloud_api for providers) behind a shared image-processing service.\nReact component suite (upload zone, prompt input, settings panel, preview) on Vite + Tailwind; API keys stay in the browser, never on a server of mine.\nHonest trade-off table in the README: local is free and private, cloud is faster and higher quality.",
+    "scroll": 3223
+  },
+  {
+    "site": "source",
+    "layout": "desktop",
+    "control": "notes-peronalai",
+    "status": "pass",
+    "visibleText": "How it is built\nApp Router API routes for chat, provider health, usage and uploads \u2014 the UI never talks to providers directly.\nProvider catalogue + adapters normalise request/response shapes, so adding a provider is one adapter file.\nSecurity layer with rate limiting and validation on every route; keys stored locally, not in the database schema.\nSQLite schema, usage tracking, markdown rendering, and a mobile tab layout alongside the desktop three-pane workspace.\nStill evolving \u2014 the repository carries handoff and workflow notes rather than release docs.",
+    "scroll": 3223
+  },
+  {
+    "site": "source",
+    "layout": "desktop",
+    "control": "notes-dualspace",
+    "status": "pass",
+    "visibleText": "How it is built\nClean architecture: repository interfaces in a domain layer, Room + cloner implementations in data, Compose screens on top.\nHilt dependency injection with an application container; Room database with committed schema versions.\nShizukuManager wraps privileged operations so elevated actions stay behind one audited boundary.\nFeature-spec document in the repository; the app is under active development, not yet released.",
+    "scroll": 3223
+  },
+  {
+    "site": "source",
+    "layout": "desktop",
+    "control": "nav-work",
+    "status": "pass",
+    "destination": "https://glitchedphoenix38.github.io/portfolioabdullah/#work",
+    "scroll": 1812,
+    "sectionText": "Selected work\n\nSix projects taken from my repositories. The notes on each one describe what is actually in the source \u2014 what is tested, what is documented, and what is still being built.\n\n01\ntests in repo\n\nVoice assistant \u00b7 Linux\n\nMustaqeem\n\nA terminal voice assistant for Arch Linux. The wake word, speech-to-text and spoken replies all run locally; only the reasoning step can use a configured OpenAI-compatible provider, with an offline rule-based fallback when nothing is configured.\n\nPython\nopenWakeWord\nfaster-whisper\npiper-tts\nRepository\n\u2197\n(opens in a new tab)\nEngineering notes\nHow it is built\nMic \u2192 openWakeWord (custom embedding from recorded wake phrases) \u2192 faster-whisper STT \u2192 AI \u2192 piper-tts reply \u2192 back to listening.\nActions go through a fixed registry of structured tools \u2014 open apps, system info, media and volume control, web search. No raw shell access is ever exposed.\nShutdown, reboot and delete require explicit confirmation; file access is confined to the home directory (own security module).\nProvider-agnostic brain: any OpenAI-compatible endpoint via base URL + key + model, plus an offline rule-based fallback and optional SQLite history.\nFive test suites in the repository cover AI, config, memory, security and tools.\n02\ndocumented\n\nOffline transcription\n\nFoziScribe\n\nAn offline transcription app for audio and video files. faster-whisper runs locally inside a Gradio interface: a fast and an accurate model mode, segment and optional word-level timestamps, .txt and .srt exports, session history, and an automatic CUDA-to-CPU fallback chain.\n\nPython\nfaster-whisper\nGradio\nCUDA\nRepository\n\u2197\n(opens in a new tab)\nEngineering notes\nHow it is built\nTwo modes: fast (small model, ~0.5\u202fGB VRAM) and accurate (large-v3-turbo, near large-v3 accuracy, ~8\u00d7 faster).\nGraceful device fallback: CUDA + float16 \u2192 CUDA + int8 \u2192 CPU + int8, so transcription keeps going without a GPU.\nVoice-activity detection skips silence; long files (1\u20132+ hours) are processed in chunks.\nExports copy-to-clipboard, .txt and .srt; the last ten sessions stay reloadable in the UI.\nWritten and tuned for a 6\u202fGB RTX 4050 laptop; the README documents the full Arch Linux + CUDA setup path.\n03\n108 tests in repo\n\nLocal text-to-speech\n\nText-to-Audio Studio\n\nA local narration studio: pick a voice and a preset, adjust the speed, synthesise WAV on your own GPU. Long scripts up to 200,000 characters are split at paragraph, sentence and clause boundaries, then stitched back into a single file \u2014 served by FastAPI with a plain HTML/CSS/JS frontend.\n\nPython\nFastAPI\nKokoro\nJavaScript\nRepository\n\u2197\n(opens in a new tab)\nEngineering notes\nHow it is built\nDeterministic chunker: paragraph \u2192 sentence \u2192 clause boundaries, so every chunk fits the engine and output order is preserved.\nStreaming 24\u202fkHz mono PCM concatenation \u2014 long jobs never hold the full waveform in memory.\nJob manager serialises GPU work; synthesis requests queue instead of colliding.\n86 backend tests (API + chunker) and 22 jsdom frontend tests, plus a smoke test script and an architecture decision document.\nVerified on hardware: Python 3.12, kokoro 0.9.4, torch CUDA build (recorded in the repo\u2019s architecture notes).\n04\ndocumented\n\nAI image editing \u00b7 hybrid\n\nLocalMind\n\nAn image editor that works offline or online. Offline mode talks to a local Stable Diffusion instance \u2014 no accounts, no requests beyond localhost. Online mode sends the same workflow to cloud providers through an API key stored in the browser. React and Vite in front, FastAPI behind.\n\nReact\nVite\nFastAPI\nStable Diffusion\nRepository\n\u2197\n(opens in a new tab)\nEngineering notes\nHow it is built\nOne workflow, two runtimes: the same prompt/settings route to a local A1111 Stable Diffusion instance (port 7860) or to cloud providers \u2014 OpenAI, Replicate, Leonardo.\nFastAPI routers separate the two paths (sd_api for local, cloud_api for providers) behind a shared image-processing service.\nReact component suite (upload zone, prompt input, settings panel, preview) on Vite + Tailwind; API keys stay in the browser, never on a server of mine.\nHonest trade-off table in the README: local is free and private, cloud is faster and higher quality.\n05\nin development\n\nAI workspace \u00b7 multi-provider\n\nperonal_ai\n\nA personal AI chat workspace that talks to any provider you configure. A typed adapter layer normalises providers, a routing service picks the backend per request, and keys live in a local store. Next.js App Router on the front, rate limiting and input validation on every API route.\n\nNext.js\nTypeScript\nTailwind\nSQLite\nRepository\n\u2197\n(opens in a new tab)\nEngineering notes\nHow it is built\nApp Router API routes for chat, provider health, usage and uploads \u2014 the UI never talks to providers directly.\nProvider catalogue + adapters normalise request/response shapes, so adding a provider is one adapter file.\nSecurity layer with rate limiting and validation on every route; keys stored locally, not in the database schema.\nSQLite schema, usage tracking, markdown rendering, and a mobile tab layout alongside the desktop three-pane workspace.\nStill evolving \u2014 the repository carries handoff and workflow notes rather than release docs.\n06\nin development\n\nAndroid \u00b7 app virtualisation\n\ndual-space\n\nAn Android dual-space app: run a second instance of an app alongside the original. Built in Kotlin with Material 3, following clean architecture \u2014 data, domain and UI layers \u2014 with an APK cloner, a virtual-app manager and Shizuku-based privileged operations.\n\nKotlin\nMaterial 3\nRoom\nHilt\nRepository\n\u2197\n(opens in a new tab)\nEngineering notes\nHow it is built\nClean architecture: repository interfaces in a domain layer, Room + cloner implementations in data, Compose screens on top.\nHilt dependency injection with an application container; Room database with committed schema versions.\nShizukuManager wraps privileged operations so elevated actions stay behind one audited boundary.\nFeature-spec document in the repository; the app is under active development, not yet released.\n\nEverything above links to its public source. I don\u2019t publish usage numbers or stars \u2014 read the code instead."
+  },
+  {
+    "site": "source",
+    "layout": "desktop",
+    "control": "nav-about",
+    "status": "pass",
+    "destination": "https://glitchedphoenix38.github.io/portfolioabdullah/#about",
+    "scroll": 4927,
+    "sectionText": "Background\n\nWhere I am, how I work, and what I build toward.\n\nI\u2019m a second-year B.Tech student in computer science, specialising in cyber security \u2014 and I learn by building things that work.\n\nMost of what I build keeps data on the machine it started on: transcribing audio, synthesising narration, listening for a wake word. Local-first is a practical choice first and a security habit second \u2014 it simply means fewer places for anything sensitive to end up.\n\nThat habit shows up in the details. Destructive commands ask before they run, file access is confined to the home directory, and no action gets a raw shell. Security is my specialisation, and I treat it as a design constraint rather than something bolted on at the end.\n\nAlongside my studies I take on freelance work and keep learning through independent projects \u2014 speech and audio tooling, Android, and web applications. I care about thoughtful engineering, clear interfaces, and software that respects the people using it.\n\nLocal by default\n\nProcess audio, speech and private data on-device. The network is an option, not a requirement.\n\nConfirm before destruction\n\nShutdown, reboot and delete ask first. Safety lives in the tool layer, not in documentation.\n\nConstrain access\n\nStructured tools instead of raw shell. Home-directory confinement. One audited boundary for privileged actions.\n\nTest where it matters\n\nThe narration service carries 86 backend tests; the assistant carries five suites. Core logic earns tests."
+  },
+  {
+    "site": "source",
+    "layout": "desktop",
+    "control": "nav-stack",
+    "status": "pass",
+    "destination": "https://glitchedphoenix38.github.io/portfolioabdullah/#stack",
+    "scroll": 5872,
+    "sectionText": "Tools I use\n\nAn inventory of what actually appears across my repositories \u2014 a working toolkit, not a proficiency ranking.\n\nLanguages\nPython\nTypeScript\nJavaScript\nKotlin\nDart\nHTML & CSS\nAI and speech\nfaster-whisper\nKokoro\npiper-tts\nopenWakeWord\nStable Diffusion\nWeb and APIs\nFastAPI\nNext.js\nReact\nVite\nExpress\nGradio\nSQLite\nPlatform\nArch Linux\nCUDA\nAndroid\nGit\nGitHub Actions\nNode.js"
+  },
+  {
+    "site": "source",
+    "layout": "desktop",
+    "control": "nav-lab",
+    "status": "pass",
+    "destination": "https://glitchedphoenix38.github.io/portfolioabdullah/#lab",
+    "scroll": 6436,
+    "sectionText": "Also in the lab\n\nSmaller builds, apps in progress and experiments. Each links to real source; the state notes tell you honestly where each one stands.\n\nAuralis\u2197\n(opens in a new tab)\nKotlin music player for Android \u2014 Room database, scanner and repository layer.\nin development\ncampusvault\u2197\n(opens in a new tab)\nFlutter study-resource app \u2014 admin dashboards, upload flows, hierarchical browsing.\nin development\nVIDEDIT\u2197\n(opens in a new tab)\nBrowser video-editor interface in TypeScript, with its own documented design system.\nin development\nLive-Users\u2197\n(opens in a new tab)\nRealtime presence counter \u2014 Express + Socket.IO backend, React frontend.\ncomplete \u00b7 small\ngemini\u2197\n(opens in a new tab)\nStatic chat web app on the Gemini API \u2014 plain HTML, CSS and JavaScript.\nexperiment\nrgbcontroler\u2197\n(opens in a new tab)\nRGB LED controller in Python \u2014 lighting effects with a UI.\nexperiment\n\nBrowse all repositories\n\u2197\n(opens in a new tab)"
+  },
+  {
+    "site": "source",
+    "layout": "desktop",
+    "control": "nav-contact",
+    "status": "pass",
+    "destination": "https://glitchedphoenix38.github.io/portfolioabdullah/#contact",
+    "scroll": 6436,
+    "sectionText": "Have something\nworth building?\n\nI\u2019m open to thoughtful collaborations, freelance inquiries, and conversations about software, AI and security.\n\nConnect on GitHub\n\u2197\n(opens in a new tab)\nBrowse repositories\n\u2197\n(opens in a new tab)\n\nGitHub is the best place to reach me.\n\nGlitchedPhoenix38"
+  },
+  {
+    "site": "source",
+    "layout": "desktop",
+    "control": "external links",
+    "status": "pass",
+    "links": [
+      {
+        "text": "GitHub\u2197 (opens in a new tab)",
+        "href": "https://github.com/GlitchedPhoenix38",
+        "target": "_blank"
+      },
+      {
+        "text": "GitHub profile\u2197 (opens in a new tab)",
+        "href": "https://github.com/GlitchedPhoenix38",
+        "target": "_blank"
+      },
+      {
+        "text": "Repository\u2197 (opens in a new tab)",
+        "href": "https://github.com/GlitchedPhoenix38/terminal-ai-assistant",
+        "target": "_blank"
+      },
+      {
+        "text": "Repository\u2197 (opens in a new tab)",
+        "href": "https://github.com/GlitchedPhoenix38/Audio-to-Text",
+        "target": "_blank"
+      },
+      {
+        "text": "Repository\u2197 (opens in a new tab)",
+        "href": "https://github.com/GlitchedPhoenix38/Text-to-Audio",
+        "target": "_blank"
+      },
+      {
+        "text": "Repository\u2197 (opens in a new tab)",
+        "href": "https://github.com/GlitchedPhoenix38/FREE-AI",
+        "target": "_blank"
+      },
+      {
+        "text": "Repository\u2197 (opens in a new tab)",
+        "href": "https://github.com/GlitchedPhoenix38/peronal_ai",
+        "target": "_blank"
+      },
+      {
+        "text": "Repository\u2197 (opens in a new tab)",
+        "href": "https://github.com/GlitchedPhoenix38/dual-space",
+        "target": "_blank"
+      },
+      {
+        "text": "Auralis\u2197 (opens in a new tab)",
+        "href": "https://github.com/GlitchedPhoenix38/Auralis",
+        "target": "_blank"
+      },
+      {
+        "text": "campusvault\u2197 (opens in a new tab)",
+        "href": "https://github.com/GlitchedPhoenix38/campusvault",
+        "target": "_blank"
+      },
+      {
+        "text": "VIDEDIT\u2197 (opens in a new tab)",
+        "href": "https://github.com/GlitchedPhoenix38/VIDEDIT",
+        "target": "_blank"
+      },
+      {
+        "text": "Live-Users\u2197 (opens in a new tab)",
+        "href": "https://github.com/GlitchedPhoenix38/Live-Users",
+        "target": "_blank"
+      },
+      {
+        "text": "gemini\u2197 (opens in a new tab)",
+        "href": "https://github.com/GlitchedPhoenix38/gemini",
+        "target": "_blank"
+      },
+      {
+        "text": "rgbcontroler\u2197 (opens in a new tab)",
+        "href": "https://github.com/GlitchedPhoenix38/rgbcontroler",
+        "target": "_blank"
+      },
+      {
+        "text": "Browse all repositories\u2197 (opens in a new tab)",
+        "href": "https://github.com/GlitchedPhoenix38?tab=repositories",
+        "target": "_blank"
+      },
+      {
+        "text": "Connect on GitHub\u2197 (opens in a new tab)",
+        "href": "https://github.com/GlitchedPhoenix38",
+        "target": "_blank"
+      },
+      {
+        "text": "Browse repositories\u2197 (opens in a new tab)",
+        "href": "https://github.com/GlitchedPhoenix38?tab=repositories",
+        "target": "_blank"
+      },
+      {
+        "text": "GitHub\u2197 (opens in a new tab)",
+        "href": "https://github.com/GlitchedPhoenix38",
+        "target": "_blank"
+      }
+    ]
+  },
+  {
+    "site": "source",
+    "layout": "desktop",
+    "control": "page",
+    "errors": [],
+    "overflow": false
+  },
+  {
+    "site": "source",
+    "layout": "phone",
+    "control": "hero CTA",
+    "status": "pass",
+    "destination": "https://glitchedphoenix38.github.io/portfolioabdullah/#work"
+  },
+  {
+    "site": "source",
+    "layout": "phone",
+    "control": "notes-mustaqeem",
+    "status": "pass",
+    "visibleText": "How it is built\nMic \u2192 openWakeWord (custom embedding from recorded wake phrases) \u2192 faster-whisper STT \u2192 AI \u2192 piper-tts reply \u2192 back to listening.\nActions go through a fixed registry of structured tools \u2014 open apps, system info, media and volume control, web search. No raw shell access is ever exposed.\nShutdown, reboot and delete require explicit confirmation; file access is confined to the home directory (own security module).\nProvider-agnostic brain: any OpenAI-compatible endpoint via base URL + key + model, plus an offline rule-based fallback and optional SQLite history.\nFive test suites in the repository cover AI, config, memory, security and tools.",
+    "scroll": 1531
+  },
+  {
+    "site": "source",
+    "layout": "phone",
+    "control": "notes-foziscribe",
+    "status": "pass",
+    "visibleText": "How it is built\nTwo modes: fast (small model, ~0.5\u202fGB VRAM) and accurate (large-v3-turbo, near large-v3 accuracy, ~8\u00d7 faster).\nGraceful device fallback: CUDA + float16 \u2192 CUDA + int8 \u2192 CPU + int8, so transcription keeps going without a GPU.\nVoice-activity detection skips silence; long files (1\u20132+ hours) are processed in chunks.\nExports copy-to-clipboard, .txt and .srt; the last ten sessions stay reloadable in the UI.\nWritten and tuned for a 6\u202fGB RTX 4050 laptop; the README documents the full Arch Linux + CUDA setup path.",
+    "scroll": 2193
+  },
+  {
+    "site": "source",
+    "layout": "phone",
+    "control": "notes-tta",
+    "status": "pass",
+    "visibleText": "How it is built\nDeterministic chunker: paragraph \u2192 sentence \u2192 clause boundaries, so every chunk fits the engine and output order is preserved.\nStreaming 24\u202fkHz mono PCM concatenation \u2014 long jobs never hold the full waveform in memory.\nJob manager serialises GPU work; synthesis requests queue instead of colliding.\n86 backend tests (API + chunker) and 22 jsdom frontend tests, plus a smoke test script and an architecture decision document.\nVerified on hardware: Python 3.12, kokoro 0.9.4, torch CUDA build (recorded in the repo\u2019s architecture notes).",
+    "scroll": 2939
+  },
+  {
+    "site": "source",
+    "layout": "phone",
+    "control": "notes-localmind",
+    "status": "pass",
+    "visibleText": "How it is built\nOne workflow, two runtimes: the same prompt/settings route to a local A1111 Stable Diffusion instance (port 7860) or to cloud providers \u2014 OpenAI, Replicate, Leonardo.\nFastAPI routers separate the two paths (sd_api for local, cloud_api for providers) behind a shared image-processing service.\nReact component suite (upload zone, prompt input, settings panel, preview) on Vite + Tailwind; API keys stay in the browser, never on a server of mine.\nHonest trade-off table in the README: local is free and private, cloud is faster and higher quality.",
+    "scroll": 3615
+  },
+  {
+    "site": "source",
+    "layout": "phone",
+    "control": "notes-peronalai",
+    "status": "pass",
+    "visibleText": "How it is built\nApp Router API routes for chat, provider health, usage and uploads \u2014 the UI never talks to providers directly.\nProvider catalogue + adapters normalise request/response shapes, so adding a provider is one adapter file.\nSecurity layer with rate limiting and validation on every route; keys stored locally, not in the database schema.\nSQLite schema, usage tracking, markdown rendering, and a mobile tab layout alongside the desktop three-pane workspace.\nStill evolving \u2014 the repository carries handoff and workflow notes rather than release docs.",
+    "scroll": 4381
+  },
+  {
+    "site": "source",
+    "layout": "phone",
+    "control": "notes-dualspace",
+    "status": "pass",
+    "visibleText": "How it is built\nClean architecture: repository interfaces in a domain layer, Room + cloner implementations in data, Compose screens on top.\nHilt dependency injection with an application container; Room database with committed schema versions.\nShizukuManager wraps privileged operations so elevated actions stay behind one audited boundary.\nFeature-spec document in the repository; the app is under active development, not yet released.",
+    "scroll": 4951
+  },
+  {
+    "site": "source",
+    "layout": "phone",
+    "control": "nav-work",
+    "status": "pass",
+    "destination": "https://glitchedphoenix38.github.io/portfolioabdullah/#work",
+    "scroll": 902,
+    "sectionText": "Selected work\n\nSix projects taken from my repositories. The notes on each one describe what is actually in the source \u2014 what is tested, what is documented, and what is still being built.\n\n01\ntests in repo\n\nVoice assistant \u00b7 Linux\n\nMustaqeem\n\nA terminal voice assistant for Arch Linux. The wake word, speech-to-text and spoken replies all run locally; only the reasoning step can use a configured OpenAI-compatible provider, with an offline rule-based fallback when nothing is configured.\n\nPython\nopenWakeWord\nfaster-whisper\npiper-tts\nRepository\n\u2197\n(opens in a new tab)\nEngineering notes\nHow it is built\nMic \u2192 openWakeWord (custom embedding from recorded wake phrases) \u2192 faster-whisper STT \u2192 AI \u2192 piper-tts reply \u2192 back to listening.\nActions go through a fixed registry of structured tools \u2014 open apps, system info, media and volume control, web search. No raw shell access is ever exposed.\nShutdown, reboot and delete require explicit confirmation; file access is confined to the home directory (own security module).\nProvider-agnostic brain: any OpenAI-compatible endpoint via base URL + key + model, plus an offline rule-based fallback and optional SQLite history.\nFive test suites in the repository cover AI, config, memory, security and tools.\n02\ndocumented\n\nOffline transcription\n\nFoziScribe\n\nAn offline transcription app for audio and video files. faster-whisper runs locally inside a Gradio interface: a fast and an accurate model mode, segment and optional word-level timestamps, .txt and .srt exports, session history, and an automatic CUDA-to-CPU fallback chain.\n\nPython\nfaster-whisper\nGradio\nCUDA\nRepository\n\u2197\n(opens in a new tab)\nEngineering notes\nHow it is built\nTwo modes: fast (small model, ~0.5\u202fGB VRAM) and accurate (large-v3-turbo, near large-v3 accuracy, ~8\u00d7 faster).\nGraceful device fallback: CUDA + float16 \u2192 CUDA + int8 \u2192 CPU + int8, so transcription keeps going without a GPU.\nVoice-activity detection skips silence; long files (1\u20132+ hours) are processed in chunks.\nExports copy-to-clipboard, .txt and .srt; the last ten sessions stay reloadable in the UI.\nWritten and tuned for a 6\u202fGB RTX 4050 laptop; the README documents the full Arch Linux + CUDA setup path.\n03\n108 tests in repo\n\nLocal text-to-speech\n\nText-to-Audio Studio\n\nA local narration studio: pick a voice and a preset, adjust the speed, synthesise WAV on your own GPU. Long scripts up to 200,000 characters are split at paragraph, sentence and clause boundaries, then stitched back into a single file \u2014 served by FastAPI with a plain HTML/CSS/JS frontend.\n\nPython\nFastAPI\nKokoro\nJavaScript\nRepository\n\u2197\n(opens in a new tab)\nEngineering notes\nHow it is built\nDeterministic chunker: paragraph \u2192 sentence \u2192 clause boundaries, so every chunk fits the engine and output order is preserved.\nStreaming 24\u202fkHz mono PCM concatenation \u2014 long jobs never hold the full waveform in memory.\nJob manager serialises GPU work; synthesis requests queue instead of colliding.\n86 backend tests (API + chunker) and 22 jsdom frontend tests, plus a smoke test script and an architecture decision document.\nVerified on hardware: Python 3.12, kokoro 0.9.4, torch CUDA build (recorded in the repo\u2019s architecture notes).\n04\ndocumented\n\nAI image editing \u00b7 hybrid\n\nLocalMind\n\nAn image editor that works offline or online. Offline mode talks to a local Stable Diffusion instance \u2014 no accounts, no requests beyond localhost. Online mode sends the same workflow to cloud providers through an API key stored in the browser. React and Vite in front, FastAPI behind.\n\nReact\nVite\nFastAPI\nStable Diffusion\nRepository\n\u2197\n(opens in a new tab)\nEngineering notes\nHow it is built\nOne workflow, two runtimes: the same prompt/settings route to a local A1111 Stable Diffusion instance (port 7860) or to cloud providers \u2014 OpenAI, Replicate, Leonardo.\nFastAPI routers separate the two paths (sd_api for local, cloud_api for providers) behind a shared image-processing service.\nReact component suite (upload zone, prompt input, settings panel, preview) on Vite + Tailwind; API keys stay in the browser, never on a server of mine.\nHonest trade-off table in the README: local is free and private, cloud is faster and higher quality.\n05\nin development\n\nAI workspace \u00b7 multi-provider\n\nperonal_ai\n\nA personal AI chat workspace that talks to any provider you configure. A typed adapter layer normalises providers, a routing service picks the backend per request, and keys live in a local store. Next.js App Router on the front, rate limiting and input validation on every API route.\n\nNext.js\nTypeScript\nTailwind\nSQLite\nRepository\n\u2197\n(opens in a new tab)\nEngineering notes\nHow it is built\nApp Router API routes for chat, provider health, usage and uploads \u2014 the UI never talks to providers directly.\nProvider catalogue + adapters normalise request/response shapes, so adding a provider is one adapter file.\nSecurity layer with rate limiting and validation on every route; keys stored locally, not in the database schema.\nSQLite schema, usage tracking, markdown rendering, and a mobile tab layout alongside the desktop three-pane workspace.\nStill evolving \u2014 the repository carries handoff and workflow notes rather than release docs.\n06\nin development\n\nAndroid \u00b7 app virtualisation\n\ndual-space\n\nAn Android dual-space app: run a second instance of an app alongside the original. Built in Kotlin with Material 3, following clean architecture \u2014 data, domain and UI layers \u2014 with an APK cloner, a virtual-app manager and Shizuku-based privileged operations.\n\nKotlin\nMaterial 3\nRoom\nHilt\nRepository\n\u2197\n(opens in a new tab)\nEngineering notes\nHow it is built\nClean architecture: repository interfaces in a domain layer, Room + cloner implementations in data, Compose screens on top.\nHilt dependency injection with an application container; Room database with committed schema versions.\nShizukuManager wraps privileged operations so elevated actions stay behind one audited boundary.\nFeature-spec document in the repository; the app is under active development, not yet released.\n\nEverything above links to its public source. I don\u2019t publish usage numbers or stars \u2014 read the code instead."
+  },
+  {
+    "site": "source",
+    "layout": "phone",
+    "control": "nav-about",
+    "status": "pass",
+    "destination": "https://glitchedphoenix38.github.io/portfolioabdullah/#about",
+    "scroll": 5583,
+    "sectionText": "Background\n\nWhere I am, how I work, and what I build toward.\n\nI\u2019m a second-year B.Tech student in computer science, specialising in cyber security \u2014 and I learn by building things that work.\n\nMost of what I build keeps data on the machine it started on: transcribing audio, synthesising narration, listening for a wake word. Local-first is a practical choice first and a security habit second \u2014 it simply means fewer places for anything sensitive to end up.\n\nThat habit shows up in the details. Destructive commands ask before they run, file access is confined to the home directory, and no action gets a raw shell. Security is my specialisation, and I treat it as a design constraint rather than something bolted on at the end.\n\nAlongside my studies I take on freelance work and keep learning through independent projects \u2014 speech and audio tooling, Android, and web applications. I care about thoughtful engineering, clear interfaces, and software that respects the people using it.\n\nLocal by default\n\nProcess audio, speech and private data on-device. The network is an option, not a requirement.\n\nConfirm before destruction\n\nShutdown, reboot and delete ask first. Safety lives in the tool layer, not in documentation.\n\nConstrain access\n\nStructured tools instead of raw shell. Home-directory confinement. One audited boundary for privileged actions.\n\nTest where it matters\n\nThe narration service carries 86 backend tests; the assistant carries five suites. Core logic earns tests."
+  },
+  {
+    "site": "source",
+    "layout": "phone",
+    "control": "nav-stack",
+    "status": "pass",
+    "destination": "https://glitchedphoenix38.github.io/portfolioabdullah/#stack",
+    "scroll": 7142,
+    "sectionText": "Tools I use\n\nAn inventory of what actually appears across my repositories \u2014 a working toolkit, not a proficiency ranking.\n\nLanguages\nPython\nTypeScript\nJavaScript\nKotlin\nDart\nHTML & CSS\nAI and speech\nfaster-whisper\nKokoro\npiper-tts\nopenWakeWord\nStable Diffusion\nWeb and APIs\nFastAPI\nNext.js\nReact\nVite\nExpress\nGradio\nSQLite\nPlatform\nArch Linux\nCUDA\nAndroid\nGit\nGitHub Actions\nNode.js"
+  },
+  {
+    "site": "source",
+    "layout": "phone",
+    "control": "nav-lab",
+    "status": "pass",
+    "destination": "https://glitchedphoenix38.github.io/portfolioabdullah/#lab",
+    "scroll": 8769,
+    "sectionText": "Also in the lab\n\nSmaller builds, apps in progress and experiments. Each links to real source; the state notes tell you honestly where each one stands.\n\nAuralis\u2197\n(opens in a new tab)\nKotlin music player for Android \u2014 Room database, scanner and repository layer.\nin development\ncampusvault\u2197\n(opens in a new tab)\nFlutter study-resource app \u2014 admin dashboards, upload flows, hierarchical browsing.\nin development\nVIDEDIT\u2197\n(opens in a new tab)\nBrowser video-editor interface in TypeScript, with its own documented design system.\nin development\nLive-Users\u2197\n(opens in a new tab)\nRealtime presence counter \u2014 Express + Socket.IO backend, React frontend.\ncomplete \u00b7 small\ngemini\u2197\n(opens in a new tab)\nStatic chat web app on the Gemini API \u2014 plain HTML, CSS and JavaScript.\nexperiment\nrgbcontroler\u2197\n(opens in a new tab)\nRGB LED controller in Python \u2014 lighting effects with a UI.\nexperiment\n\nBrowse all repositories\n\u2197\n(opens in a new tab)"
+  },
+  {
+    "site": "source",
+    "layout": "phone",
+    "control": "nav-contact",
+    "status": "pass",
+    "destination": "https://glitchedphoenix38.github.io/portfolioabdullah/#contact",
+    "scroll": 9886,
+    "sectionText": "Have something\nworth building?\n\nI\u2019m open to thoughtful collaborations, freelance inquiries, and conversations about software, AI and security.\n\nConnect on GitHub\n\u2197\n(opens in a new tab)\nBrowse repositories\n\u2197\n(opens in a new tab)\n\nGitHub is the best place to reach me.\n\nGlitchedPhoenix38"
+  },
+  {
+    "site": "source",
+    "layout": "phone",
+    "control": "external links",
+    "status": "pass",
+    "links": [
+      {
+        "text": "GitHub\u2197 (opens in a new tab)",
+        "href": "https://github.com/GlitchedPhoenix38",
+        "target": "_blank"
+      },
+      {
+        "text": "GitHub profile\u2197 (opens in a new tab)",
+        "href": "https://github.com/GlitchedPhoenix38",
+        "target": "_blank"
+      },
+      {
+        "text": "Repository\u2197 (opens in a new tab)",
+        "href": "https://github.com/GlitchedPhoenix38/terminal-ai-assistant",
+        "target": "_blank"
+      },
+      {
+        "text": "Repository\u2197 (opens in a new tab)",
+        "href": "https://github.com/GlitchedPhoenix38/Audio-to-Text",
+        "target": "_blank"
+      },
+      {
+        "text": "Repository\u2197 (opens in a new tab)",
+        "href": "https://github.com/GlitchedPhoenix38/Text-to-Audio",
+        "target": "_blank"
+      },
+      {
+        "text": "Repository\u2197 (opens in a new tab)",
+        "href": "https://github.com/GlitchedPhoenix38/FREE-AI",
+        "target": "_blank"
+      },
+      {
+        "text": "Repository\u2197 (opens in a new tab)",
+        "href": "https://github.com/GlitchedPhoenix38/peronal_ai",
+        "target": "_blank"
+      },
+      {
+        "text": "Repository\u2197 (opens in a new tab)",
+        "href": "https://github.com/GlitchedPhoenix38/dual-space",
+        "target": "_blank"
+      },
+      {
+        "text": "Auralis\u2197 (opens in a new tab)",
+        "href": "https://github.com/GlitchedPhoenix38/Auralis",
+        "target": "_blank"
+      },
+      {
+        "text": "campusvault\u2197 (opens in a new tab)",
+        "href": "https://github.com/GlitchedPhoenix38/campusvault",
+        "target": "_blank"
+      },
+      {
+        "text": "VIDEDIT\u2197 (opens in a new tab)",
+        "href": "https://github.com/GlitchedPhoenix38/VIDEDIT",
+        "target": "_blank"
+      },
+      {
+        "text": "Live-Users\u2197 (opens in a new tab)",
+        "href": "https://github.com/GlitchedPhoenix38/Live-Users",
+        "target": "_blank"
+      },
+      {
+        "text": "gemini\u2197 (opens in a new tab)",
+        "href": "https://github.com/GlitchedPhoenix38/gemini",
+        "target": "_blank"
+      },
+      {
+        "text": "rgbcontroler\u2197 (opens in a new tab)",
+        "href": "https://github.com/GlitchedPhoenix38/rgbcontroler",
+        "target": "_blank"
+      },
+      {
+        "text": "Browse all repositories\u2197 (opens in a new tab)",
+        "href": "https://github.com/GlitchedPhoenix38?tab=repositories",
+        "target": "_blank"
+      },
+      {
+        "text": "Connect on GitHub\u2197 (opens in a new tab)",
+        "href": "https://github.com/GlitchedPhoenix38",
+        "target": "_blank"
+      },
+      {
+        "text": "Browse repositories\u2197 (opens in a new tab)",
+        "href": "https://github.com/GlitchedPhoenix38?tab=repositories",
+        "target": "_blank"
+      },
+      {
+        "text": "GitHub\u2197 (opens in a new tab)",
+        "href": "https://github.com/GlitchedPhoenix38",
+        "target": "_blank"
+      }
+    ]
+  },
+  {
+    "site": "source",
+    "layout": "phone",
+    "control": "Escape menu",
+    "status": "pass"
+  },
+  {
+    "site": "source",
+    "layout": "phone",
+    "control": "page",
+    "errors": [],
+    "overflow": false
+  },
+  {
+    "site": "preview",
+    "layout": "desktop",
+    "control": "hero CTA",
+    "status": "pass",
+    "destination": "http://localhost:8080/#work"
+  },
+  {
+    "site": "preview",
+    "layout": "desktop",
+    "control": "notes-mustaqeem",
+    "status": "pass",
+    "visibleText": "How it is built\nMic \u2192 openWakeWord (custom embedding from recorded wake phrases) \u2192 faster-whisper STT \u2192 AI \u2192 piper-tts reply \u2192 back to listening.\nActions go through a fixed registry of structured tools \u2014 open apps, system info, media and volume control, web search. No raw shell access is ever exposed.\nShutdown, reboot and delete require explicit confirmation; file access is confined to the home directory (own security module).\nProvider-agnostic brain: any OpenAI-compatible endpoint via base URL + key + model, plus an offline rule-based fallback and optional SQLite history.\nFive test suites in the repository cover AI, config, memory, security and tools.",
+    "scroll": 1712
+  },
+  {
+    "site": "preview",
+    "layout": "desktop",
+    "control": "notes-foziscribe",
+    "status": "pass",
+    "visibleText": "How it is built\nTwo modes: fast (small model, ~0.5\u202fGB VRAM) and accurate (large-v3-turbo, near large-v3 accuracy, ~8\u00d7 faster).\nGraceful device fallback: CUDA + float16 \u2192 CUDA + int8 \u2192 CPU + int8, so transcription keeps going without a GPU.\nVoice-activity detection skips silence; long files (1\u20132+ hours) are processed in chunks.\nExports copy-to-clipboard, .txt and .srt; the last ten sessions stay reloadable in the UI.\nWritten and tuned for a 6\u202fGB RTX 4050 laptop; the README documents the full Arch Linux + CUDA setup path.",
+    "scroll": 2775
+  },
+  {
+    "site": "preview",
+    "layout": "desktop",
+    "control": "notes-tta",
+    "status": "pass",
+    "visibleText": "How it is built\nDeterministic chunker: paragraph \u2192 sentence \u2192 clause boundaries, so every chunk fits the engine and output order is preserved.\nStreaming 24\u202fkHz mono PCM concatenation \u2014 long jobs never hold the full waveform in memory.\nJob manager serialises GPU work; synthesis requests queue instead of colliding.\n86 backend tests (API + chunker) and 22 jsdom frontend tests, plus a smoke test script and an architecture decision document.\nVerified on hardware: Python 3.12, kokoro 0.9.4, torch CUDA build (recorded in the repo\u2019s architecture notes).",
+    "scroll": 2775
+  },
+  {
+    "site": "preview",
+    "layout": "desktop",
+    "control": "notes-localmind",
+    "status": "pass",
+    "visibleText": "How it is built\nOne workflow, two runtimes: the same prompt/settings route to a local A1111 Stable Diffusion instance (port 7860) or to cloud providers \u2014 OpenAI, Replicate, Leonardo.\nFastAPI routers separate the two paths (sd_api for local, cloud_api for providers) behind a shared image-processing service.\nReact component suite (upload zone, prompt input, settings panel, preview) on Vite + Tailwind; API keys stay in the browser, never on a server of mine.\nHonest trade-off table in the README: local is free and private, cloud is faster and higher quality.",
+    "scroll": 3671
+  },
+  {
+    "site": "preview",
+    "layout": "desktop",
+    "control": "notes-peronalai",
+    "status": "pass",
+    "visibleText": "How it is built\nApp Router API routes for chat, provider health, usage and uploads \u2014 the UI never talks to providers directly.\nProvider catalogue + adapters normalise request/response shapes, so adding a provider is one adapter file.\nSecurity layer with rate limiting and validation on every route; keys stored locally, not in the database schema.\nSQLite schema, usage tracking, markdown rendering, and a mobile tab layout alongside the desktop three-pane workspace.\nStill evolving \u2014 the repository carries handoff and workflow notes rather than release docs.",
+    "scroll": 4119
+  },
+  {
+    "site": "preview",
+    "layout": "desktop",
+    "control": "notes-dualspace",
+    "status": "pass",
+    "visibleText": "How it is built\nClean architecture: repository interfaces in a domain layer, Room + cloner implementations in data, Compose screens on top.\nHilt dependency injection with an application container; Room database with committed schema versions.\nShizukuManager wraps privileged operations so elevated actions stay behind one audited boundary.\nFeature-spec document in the repository; the app is under active development, not yet released.",
+    "scroll": 4566
+  },
+  {
+    "site": "preview",
+    "layout": "desktop",
+    "control": "nav-work",
+    "status": "pass",
+    "destination": "http://localhost:8080/#work",
+    "scroll": 1812,
+    "sectionText": "Selected work\n\nSix projects taken from my repositories. The notes on each one describe what is actually in the source \u2014 what is tested, what is documented, and what is still being built.\n\n01\ntests in repo\n\nVoice assistant \u00b7 Linux\n\nMustaqeem\n\nA terminal voice assistant for Arch Linux. The wake word, speech-to-text and spoken replies all run locally; only the reasoning step can use a configured OpenAI-compatible provider, with an offline rule-based fallback when nothing is configured.\n\nPython\nopenWakeWord\nfaster-whisper\npiper-tts\nRepository\n\u2197\n(opens in a new tab)\nEngineering notes\nHow it is built\nMic \u2192 openWakeWord (custom embedding from recorded wake phrases) \u2192 faster-whisper STT \u2192 AI \u2192 piper-tts reply \u2192 back to listening.\nActions go through a fixed registry of structured tools \u2014 open apps, system info, media and volume control, web search. No raw shell access is ever exposed.\nShutdown, reboot and delete require explicit confirmation; file access is confined to the home directory (own security module).\nProvider-agnostic brain: any OpenAI-compatible endpoint via base URL + key + model, plus an offline rule-based fallback and optional SQLite history.\nFive test suites in the repository cover AI, config, memory, security and tools.\n02\ndocumented\n\nOffline transcription\n\nFoziScribe\n\nAn offline transcription app for audio and video files. faster-whisper runs locally inside a Gradio interface: a fast and an accurate model mode, segment and optional word-level timestamps, .txt and .srt exports, session history, and an automatic CUDA-to-CPU fallback chain.\n\nPython\nfaster-whisper\nGradio\nCUDA\nRepository\n\u2197\n(opens in a new tab)\nEngineering notes\nHow it is built\nTwo modes: fast (small model, ~0.5\u202fGB VRAM) and accurate (large-v3-turbo, near large-v3 accuracy, ~8\u00d7 faster).\nGraceful device fallback: CUDA + float16 \u2192 CUDA + int8 \u2192 CPU + int8, so transcription keeps going without a GPU.\nVoice-activity detection skips silence; long files (1\u20132+ hours) are processed in chunks.\nExports copy-to-clipboard, .txt and .srt; the last ten sessions stay reloadable in the UI.\nWritten and tuned for a 6\u202fGB RTX 4050 laptop; the README documents the full Arch Linux + CUDA setup path.\n03\n108 tests in repo\n\nLocal text-to-speech\n\nText-to-Audio Studio\n\nA local narration studio: pick a voice and a preset, adjust the speed, synthesise WAV on your own GPU. Long scripts up to 200,000 characters are split at paragraph, sentence and clause boundaries, then stitched back into a single file \u2014 served by FastAPI with a plain HTML/CSS/JS frontend.\n\nPython\nFastAPI\nKokoro\nJavaScript\nRepository\n\u2197\n(opens in a new tab)\nEngineering notes\nHow it is built\nDeterministic chunker: paragraph \u2192 sentence \u2192 clause boundaries, so every chunk fits the engine and output order is preserved.\nStreaming 24\u202fkHz mono PCM concatenation \u2014 long jobs never hold the full waveform in memory.\nJob manager serialises GPU work; synthesis requests queue instead of colliding.\n86 backend tests (API + chunker) and 22 jsdom frontend tests, plus a smoke test script and an architecture decision document.\nVerified on hardware: Python 3.12, kokoro 0.9.4, torch CUDA build (recorded in the repo\u2019s architecture notes).\n04\ndocumented\n\nAI image editing \u00b7 hybrid\n\nLocalMind\n\nAn image editor that works offline or online. Offline mode talks to a local Stable Diffusion instance \u2014 no accounts, no requests beyond localhost. Online mode sends the same workflow to cloud providers through an API key stored in the browser. React and Vite in front, FastAPI behind.\n\nReact\nVite\nFastAPI\nStable Diffusion\nRepository\n\u2197\n(opens in a new tab)\nEngineering notes\nHow it is built\nOne workflow, two runtimes: the same prompt/settings route to a local A1111 Stable Diffusion instance (port 7860) or to cloud providers \u2014 OpenAI, Replicate, Leonardo.\nFastAPI routers separate the two paths (sd_api for local, cloud_api for providers) behind a shared image-processing service.\nReact component suite (upload zone, prompt input, settings panel, preview) on Vite + Tailwind; API keys stay in the browser, never on a server of mine.\nHonest trade-off table in the README: local is free and private, cloud is faster and higher quality.\n05\nin development\n\nAI workspace \u00b7 multi-provider\n\nperonal_ai\n\nA personal AI chat workspace that talks to any provider you configure. A typed adapter layer normalises providers, a routing service picks the backend per request, and keys live in a local store. Next.js App Router on the front, rate limiting and input validation on every API route.\n\nNext.js\nTypeScript\nTailwind\nSQLite\nRepository\n\u2197\n(opens in a new tab)\nEngineering notes\nHow it is built\nApp Router API routes for chat, provider health, usage and uploads \u2014 the UI never talks to providers directly.\nProvider catalogue + adapters normalise request/response shapes, so adding a provider is one adapter file.\nSecurity layer with rate limiting and validation on every route; keys stored locally, not in the database schema.\nSQLite schema, usage tracking, markdown rendering, and a mobile tab layout alongside the desktop three-pane workspace.\nStill evolving \u2014 the repository carries handoff and workflow notes rather than release docs.\n06\nin development\n\nAndroid \u00b7 app virtualisation\n\ndual-space\n\nAn Android dual-space app: run a second instance of an app alongside the original. Built in Kotlin with Material 3, following clean architecture \u2014 data, domain and UI layers \u2014 with an APK cloner, a virtual-app manager and Shizuku-based privileged operations.\n\nKotlin\nMaterial 3\nRoom\nHilt\nRepository\n\u2197\n(opens in a new tab)\nEngineering notes\nHow it is built\nClean architecture: repository interfaces in a domain layer, Room + cloner implementations in data, Compose screens on top.\nHilt dependency injection with an application container; Room database with committed schema versions.\nShizukuManager wraps privileged operations so elevated actions stay behind one audited boundary.\nFeature-spec document in the repository; the app is under active development, not yet released.\n\nEverything above links to its public source. I don\u2019t publish usage numbers or stars \u2014 read the code instead."
+  },
+  {
+    "site": "preview",
+    "layout": "desktop",
+    "control": "nav-about",
+    "status": "pass",
+    "destination": "http://localhost:8080/#about",
+    "scroll": 4927,
+    "sectionText": "Background\n\nWhere I am, how I work, and what I build toward.\n\nI\u2019m a second-year B.Tech student in computer science, specialising in cyber security \u2014 and I learn by building things that work.\n\nMost of what I build keeps data on the machine it started on: transcribing audio, synthesising narration, listening for a wake word. Local-first is a practical choice first and a security habit second \u2014 it simply means fewer places for anything sensitive to end up.\n\nThat habit shows up in the details. Destructive commands ask before they run, file access is confined to the home directory, and no action gets a raw shell. Security is my specialisation, and I treat it as a design constraint rather than something bolted on at the end.\n\nAlongside my studies I take on freelance work and keep learning through independent projects \u2014 speech and audio tooling, Android, and web applications. I care about thoughtful engineering, clear interfaces, and software that respects the people using it.\n\nLocal by default\n\nProcess audio, speech and private data on-device. The network is an option, not a requirement.\n\nConfirm before destruction\n\nShutdown, reboot and delete ask first. Safety lives in the tool layer, not in documentation.\n\nConstrain access\n\nStructured tools instead of raw shell. Home-directory confinement. One audited boundary for privileged actions.\n\nTest where it matters\n\nThe narration service carries 86 backend tests; the assistant carries five suites. Core logic earns tests."
+  },
+  {
+    "site": "preview",
+    "layout": "desktop",
+    "control": "nav-stack",
+    "status": "pass",
+    "destination": "http://localhost:8080/#stack",
+    "scroll": 5872,
+    "sectionText": "Tools I use\n\nAn inventory of what actually appears across my repositories \u2014 a working toolkit, not a proficiency ranking.\n\nLanguages\nPython\nTypeScript\nJavaScript\nKotlin\nDart\nHTML & CSS\nAI and speech\nfaster-whisper\nKokoro\npiper-tts\nopenWakeWord\nStable Diffusion\nWeb and APIs\nFastAPI\nNext.js\nReact\nVite\nExpress\nGradio\nSQLite\nPlatform\nArch Linux\nCUDA\nAndroid\nGit\nGitHub Actions\nNode.js"
+  },
+  {
+    "site": "preview",
+    "layout": "desktop",
+    "control": "nav-lab",
+    "status": "pass",
+    "destination": "http://localhost:8080/#lab",
+    "scroll": 6436,
+    "sectionText": "Also in the lab\n\nSmaller builds, apps in progress and experiments. Each links to real source; the state notes tell you honestly where each one stands.\n\nAuralis\u2197\n(opens in a new tab)\nKotlin music player for Android \u2014 Room database, scanner and repository layer.\nin development\ncampusvault\u2197\n(opens in a new tab)\nFlutter study-resource app \u2014 admin dashboards, upload flows, hierarchical browsing.\nin development\nVIDEDIT\u2197\n(opens in a new tab)\nBrowser video-editor interface in TypeScript, with its own documented design system.\nin development\nLive-Users\u2197\n(opens in a new tab)\nRealtime presence counter \u2014 Express + Socket.IO backend, React frontend.\ncomplete \u00b7 small\ngemini\u2197\n(opens in a new tab)\nStatic chat web app on the Gemini API \u2014 plain HTML, CSS and JavaScript.\nexperiment\nrgbcontroler\u2197\n(opens in a new tab)\nRGB LED controller in Python \u2014 lighting effects with a UI.\nexperiment\n\nBrowse all repositories\n\u2197\n(opens in a new tab)"
+  },
+  {
+    "site": "preview",
+    "layout": "desktop",
+    "control": "nav-contact",
+    "status": "pass",
+    "destination": "http://localhost:8080/#contact",
+    "scroll": 6436,
+    "sectionText": "Have something\nworth building?\n\nI\u2019m open to thoughtful collaborations, freelance inquiries, and conversations about software, AI and security.\n\nConnect on GitHub\n\u2197\n(opens in a new tab)\nBrowse repositories\n\u2197\n(opens in a new tab)\n\nGitHub is the best place to reach me.\n\nGlitchedPhoenix38"
+  },
+  {
+    "site": "preview",
+    "layout": "desktop",
+    "control": "external links",
+    "status": "pass",
+    "links": [
+      {
+        "text": "GitHub\u2197 (opens in a new tab)",
+        "href": "https://github.com/GlitchedPhoenix38",
+        "target": "_blank"
+      },
+      {
+        "text": "GitHub profile\u2197 (opens in a new tab)",
+        "href": "https://github.com/GlitchedPhoenix38",
+        "target": "_blank"
+      },
+      {
+        "text": "Repository\u2197 (opens in a new tab)",
+        "href": "https://github.com/GlitchedPhoenix38/terminal-ai-assistant",
+        "target": "_blank"
+      },
+      {
+        "text": "Repository\u2197 (opens in a new tab)",
+        "href": "https://github.com/GlitchedPhoenix38/Audio-to-Text",
+        "target": "_blank"
+      },
+      {
+        "text": "Repository\u2197 (opens in a new tab)",
+        "href": "https://github.com/GlitchedPhoenix38/Text-to-Audio",
+        "target": "_blank"
+      },
+      {
+        "text": "Repository\u2197 (opens in a new tab)",
+        "href": "https://github.com/GlitchedPhoenix38/FREE-AI",
+        "target": "_blank"
+      },
+      {
+        "text": "Repository\u2197 (opens in a new tab)",
+        "href": "https://github.com/GlitchedPhoenix38/peronal_ai",
+        "target": "_blank"
+      },
+      {
+        "text": "Repository\u2197 (opens in a new tab)",
+        "href": "https://github.com/GlitchedPhoenix38/dual-space",
+        "target": "_blank"
+      },
+      {
+        "text": "Auralis\u2197 (opens in a new tab)",
+        "href": "https://github.com/GlitchedPhoenix38/Auralis",
+        "target": "_blank"
+      },
+      {
+        "text": "campusvault\u2197 (opens in a new tab)",
+        "href": "https://github.com/GlitchedPhoenix38/campusvault",
+        "target": "_blank"
+      },
+      {
+        "text": "VIDEDIT\u2197 (opens in a new tab)",
+        "href": "https://github.com/GlitchedPhoenix38/VIDEDIT",
+        "target": "_blank"
+      },
+      {
+        "text": "Live-Users\u2197 (opens in a new tab)",
+        "href": "https://github.com/GlitchedPhoenix38/Live-Users",
+        "target": "_blank"
+      },
+      {
+        "text": "gemini\u2197 (opens in a new tab)",
+        "href": "https://github.com/GlitchedPhoenix38/gemini",
+        "target": "_blank"
+      },
+      {
+        "text": "rgbcontroler\u2197 (opens in a new tab)",
+        "href": "https://github.com/GlitchedPhoenix38/rgbcontroler",
+        "target": "_blank"
+      },
+      {
+        "text": "Browse all repositories\u2197 (opens in a new tab)",
+        "href": "https://github.com/GlitchedPhoenix38?tab=repositories",
+        "target": "_blank"
+      },
+      {
+        "text": "Connect on GitHub\u2197 (opens in a new tab)",
+        "href": "https://github.com/GlitchedPhoenix38",
+        "target": "_blank"
+      },
+      {
+        "text": "Browse repositories\u2197 (opens in a new tab)",
+        "href": "https://github.com/GlitchedPhoenix38?tab=repositories",
+        "target": "_blank"
+      },
+      {
+        "text": "GitHub\u2197 (opens in a new tab)",
+        "href": "https://github.com/GlitchedPhoenix38",
+        "target": "_blank"
+      }
+    ]
+  },
+  {
+    "site": "preview",
+    "layout": "desktop",
+    "control": "page",
+    "errors": [],
+    "overflow": false
+  },
+  {
+    "site": "preview",
+    "layout": "phone",
+    "control": "hero CTA",
+    "status": "pass",
+    "destination": "http://localhost:8080/#work"
+  },
+  {
+    "site": "preview",
+    "layout": "phone",
+    "control": "notes-mustaqeem",
+    "status": "pass",
+    "visibleText": "How it is built\nMic \u2192 openWakeWord (custom embedding from recorded wake phrases) \u2192 faster-whisper STT \u2192 AI \u2192 piper-tts reply \u2192 back to listening.\nActions go through a fixed registry of structured tools \u2014 open apps, system info, media and volume control, web search. No raw shell access is ever exposed.\nShutdown, reboot and delete require explicit confirmation; file access is confined to the home directory (own security module).\nProvider-agnostic brain: any OpenAI-compatible endpoint via base URL + key + model, plus an offline rule-based fallback and optional SQLite history.\nFive test suites in the repository cover AI, config, memory, security and tools.",
+    "scroll": 1543
+  },
+  {
+    "site": "preview",
+    "layout": "phone",
+    "control": "notes-foziscribe",
+    "status": "pass",
+    "visibleText": "How it is built\nTwo modes: fast (small model, ~0.5\u202fGB VRAM) and accurate (large-v3-turbo, near large-v3 accuracy, ~8\u00d7 faster).\nGraceful device fallback: CUDA + float16 \u2192 CUDA + int8 \u2192 CPU + int8, so transcription keeps going without a GPU.\nVoice-activity detection skips silence; long files (1\u20132+ hours) are processed in chunks.\nExports copy-to-clipboard, .txt and .srt; the last ten sessions stay reloadable in the UI.\nWritten and tuned for a 6\u202fGB RTX 4050 laptop; the README documents the full Arch Linux + CUDA setup path.",
+    "scroll": 2204
+  },
+  {
+    "site": "preview",
+    "layout": "phone",
+    "control": "notes-tta",
+    "status": "pass",
+    "visibleText": "How it is built\nDeterministic chunker: paragraph \u2192 sentence \u2192 clause boundaries, so every chunk fits the engine and output order is preserved.\nStreaming 24\u202fkHz mono PCM concatenation \u2014 long jobs never hold the full waveform in memory.\nJob manager serialises GPU work; synthesis requests queue instead of colliding.\n86 backend tests (API + chunker) and 22 jsdom frontend tests, plus a smoke test script and an architecture decision document.\nVerified on hardware: Python 3.12, kokoro 0.9.4, torch CUDA build (recorded in the repo\u2019s architecture notes).",
+    "scroll": 2951
+  },
+  {
+    "site": "preview",
+    "layout": "phone",
+    "control": "notes-localmind",
+    "status": "pass",
+    "visibleText": "How it is built\nOne workflow, two runtimes: the same prompt/settings route to a local A1111 Stable Diffusion instance (port 7860) or to cloud providers \u2014 OpenAI, Replicate, Leonardo.\nFastAPI routers separate the two paths (sd_api for local, cloud_api for providers) behind a shared image-processing service.\nReact component suite (upload zone, prompt input, settings panel, preview) on Vite + Tailwind; API keys stay in the browser, never on a server of mine.\nHonest trade-off table in the README: local is free and private, cloud is faster and higher quality.",
+    "scroll": 3620
+  },
+  {
+    "site": "preview",
+    "layout": "phone",
+    "control": "notes-peronalai",
+    "status": "pass",
+    "visibleText": "How it is built\nApp Router API routes for chat, provider health, usage and uploads \u2014 the UI never talks to providers directly.\nProvider catalogue + adapters normalise request/response shapes, so adding a provider is one adapter file.\nSecurity layer with rate limiting and validation on every route; keys stored locally, not in the database schema.\nSQLite schema, usage tracking, markdown rendering, and a mobile tab layout alongside the desktop three-pane workspace.\nStill evolving \u2014 the repository carries handoff and workflow notes rather than release docs.",
+    "scroll": 4393
+  },
+  {
+    "site": "preview",
+    "layout": "phone",
+    "control": "notes-dualspace",
+    "status": "pass",
+    "visibleText": "How it is built\nClean architecture: repository interfaces in a domain layer, Room + cloner implementations in data, Compose screens on top.\nHilt dependency injection with an application container; Room database with committed schema versions.\nShizukuManager wraps privileged operations so elevated actions stay behind one audited boundary.\nFeature-spec document in the repository; the app is under active development, not yet released.",
+    "scroll": 4960
+  },
+  {
+    "site": "preview",
+    "layout": "phone",
+    "control": "nav-work",
+    "status": "pass",
+    "destination": "http://localhost:8080/#work",
+    "scroll": 902,
+    "sectionText": "Selected work\n\nSix projects taken from my repositories. The notes on each one describe what is actually in the source \u2014 what is tested, what is documented, and what is still being built.\n\n01\ntests in repo\n\nVoice assistant \u00b7 Linux\n\nMustaqeem\n\nA terminal voice assistant for Arch Linux. The wake word, speech-to-text and spoken replies all run locally; only the reasoning step can use a configured OpenAI-compatible provider, with an offline rule-based fallback when nothing is configured.\n\nPython\nopenWakeWord\nfaster-whisper\npiper-tts\nRepository\n\u2197\n(opens in a new tab)\nEngineering notes\nHow it is built\nMic \u2192 openWakeWord (custom embedding from recorded wake phrases) \u2192 faster-whisper STT \u2192 AI \u2192 piper-tts reply \u2192 back to listening.\nActions go through a fixed registry of structured tools \u2014 open apps, system info, media and volume control, web search. No raw shell access is ever exposed.\nShutdown, reboot and delete require explicit confirmation; file access is confined to the home directory (own security module).\nProvider-agnostic brain: any OpenAI-compatible endpoint via base URL + key + model, plus an offline rule-based fallback and optional SQLite history.\nFive test suites in the repository cover AI, config, memory, security and tools.\n02\ndocumented\n\nOffline transcription\n\nFoziScribe\n\nAn offline transcription app for audio and video files. faster-whisper runs locally inside a Gradio interface: a fast and an accurate model mode, segment and optional word-level timestamps, .txt and .srt exports, session history, and an automatic CUDA-to-CPU fallback chain.\n\nPython\nfaster-whisper\nGradio\nCUDA\nRepository\n\u2197\n(opens in a new tab)\nEngineering notes\nHow it is built\nTwo modes: fast (small model, ~0.5\u202fGB VRAM) and accurate (large-v3-turbo, near large-v3 accuracy, ~8\u00d7 faster).\nGraceful device fallback: CUDA + float16 \u2192 CUDA + int8 \u2192 CPU + int8, so transcription keeps going without a GPU.\nVoice-activity detection skips silence; long files (1\u20132+ hours) are processed in chunks.\nExports copy-to-clipboard, .txt and .srt; the last ten sessions stay reloadable in the UI.\nWritten and tuned for a 6\u202fGB RTX 4050 laptop; the README documents the full Arch Linux + CUDA setup path.\n03\n108 tests in repo\n\nLocal text-to-speech\n\nText-to-Audio Studio\n\nA local narration studio: pick a voice and a preset, adjust the speed, synthesise WAV on your own GPU. Long scripts up to 200,000 characters are split at paragraph, sentence and clause boundaries, then stitched back into a single file \u2014 served by FastAPI with a plain HTML/CSS/JS frontend.\n\nPython\nFastAPI\nKokoro\nJavaScript\nRepository\n\u2197\n(opens in a new tab)\nEngineering notes\nHow it is built\nDeterministic chunker: paragraph \u2192 sentence \u2192 clause boundaries, so every chunk fits the engine and output order is preserved.\nStreaming 24\u202fkHz mono PCM concatenation \u2014 long jobs never hold the full waveform in memory.\nJob manager serialises GPU work; synthesis requests queue instead of colliding.\n86 backend tests (API + chunker) and 22 jsdom frontend tests, plus a smoke test script and an architecture decision document.\nVerified on hardware: Python 3.12, kokoro 0.9.4, torch CUDA build (recorded in the repo\u2019s architecture notes).\n04\ndocumented\n\nAI image editing \u00b7 hybrid\n\nLocalMind\n\nAn image editor that works offline or online. Offline mode talks to a local Stable Diffusion instance \u2014 no accounts, no requests beyond localhost. Online mode sends the same workflow to cloud providers through an API key stored in the browser. React and Vite in front, FastAPI behind.\n\nReact\nVite\nFastAPI\nStable Diffusion\nRepository\n\u2197\n(opens in a new tab)\nEngineering notes\nHow it is built\nOne workflow, two runtimes: the same prompt/settings route to a local A1111 Stable Diffusion instance (port 7860) or to cloud providers \u2014 OpenAI, Replicate, Leonardo.\nFastAPI routers separate the two paths (sd_api for local, cloud_api for providers) behind a shared image-processing service.\nReact component suite (upload zone, prompt input, settings panel, preview) on Vite + Tailwind; API keys stay in the browser, never on a server of mine.\nHonest trade-off table in the README: local is free and private, cloud is faster and higher quality.\n05\nin development\n\nAI workspace \u00b7 multi-provider\n\nperonal_ai\n\nA personal AI chat workspace that talks to any provider you configure. A typed adapter layer normalises providers, a routing service picks the backend per request, and keys live in a local store. Next.js App Router on the front, rate limiting and input validation on every API route.\n\nNext.js\nTypeScript\nTailwind\nSQLite\nRepository\n\u2197\n(opens in a new tab)\nEngineering notes\nHow it is built\nApp Router API routes for chat, provider health, usage and uploads \u2014 the UI never talks to providers directly.\nProvider catalogue + adapters normalise request/response shapes, so adding a provider is one adapter file.\nSecurity layer with rate limiting and validation on every route; keys stored locally, not in the database schema.\nSQLite schema, usage tracking, markdown rendering, and a mobile tab layout alongside the desktop three-pane workspace.\nStill evolving \u2014 the repository carries handoff and workflow notes rather than release docs.\n06\nin development\n\nAndroid \u00b7 app virtualisation\n\ndual-space\n\nAn Android dual-space app: run a second instance of an app alongside the original. Built in Kotlin with Material 3, following clean architecture \u2014 data, domain and UI layers \u2014 with an APK cloner, a virtual-app manager and Shizuku-based privileged operations.\n\nKotlin\nMaterial 3\nRoom\nHilt\nRepository\n\u2197\n(opens in a new tab)\nEngineering notes\nHow it is built\nClean architecture: repository interfaces in a domain layer, Room + cloner implementations in data, Compose screens on top.\nHilt dependency injection with an application container; Room database with committed schema versions.\nShizukuManager wraps privileged operations so elevated actions stay behind one audited boundary.\nFeature-spec document in the repository; the app is under active development, not yet released.\n\nEverything above links to its public source. I don\u2019t publish usage numbers or stars \u2014 read the code instead."
+  },
+  {
+    "site": "preview",
+    "layout": "phone",
+    "control": "nav-about",
+    "status": "pass",
+    "destination": "http://localhost:8080/#about",
+    "scroll": 5583,
+    "sectionText": "Background\n\nWhere I am, how I work, and what I build toward.\n\nI\u2019m a second-year B.Tech student in computer science, specialising in cyber security \u2014 and I learn by building things that work.\n\nMost of what I build keeps data on the machine it started on: transcribing audio, synthesising narration, listening for a wake word. Local-first is a practical choice first and a security habit second \u2014 it simply means fewer places for anything sensitive to end up.\n\nThat habit shows up in the details. Destructive commands ask before they run, file access is confined to the home directory, and no action gets a raw shell. Security is my specialisation, and I treat it as a design constraint rather than something bolted on at the end.\n\nAlongside my studies I take on freelance work and keep learning through independent projects \u2014 speech and audio tooling, Android, and web applications. I care about thoughtful engineering, clear interfaces, and software that respects the people using it.\n\nLocal by default\n\nProcess audio, speech and private data on-device. The network is an option, not a requirement.\n\nConfirm before destruction\n\nShutdown, reboot and delete ask first. Safety lives in the tool layer, not in documentation.\n\nConstrain access\n\nStructured tools instead of raw shell. Home-directory confinement. One audited boundary for privileged actions.\n\nTest where it matters\n\nThe narration service carries 86 backend tests; the assistant carries five suites. Core logic earns tests."
+  },
+  {
+    "site": "preview",
+    "layout": "phone",
+    "control": "nav-stack",
+    "status": "pass",
+    "destination": "http://localhost:8080/#stack",
+    "scroll": 7142,
+    "sectionText": "Tools I use\n\nAn inventory of what actually appears across my repositories \u2014 a working toolkit, not a proficiency ranking.\n\nLanguages\nPython\nTypeScript\nJavaScript\nKotlin\nDart\nHTML & CSS\nAI and speech\nfaster-whisper\nKokoro\npiper-tts\nopenWakeWord\nStable Diffusion\nWeb and APIs\nFastAPI\nNext.js\nReact\nVite\nExpress\nGradio\nSQLite\nPlatform\nArch Linux\nCUDA\nAndroid\nGit\nGitHub Actions\nNode.js"
+  },
+  {
+    "site": "preview",
+    "layout": "phone",
+    "control": "nav-lab",
+    "status": "pass",
+    "destination": "http://localhost:8080/#lab",
+    "scroll": 8769,
+    "sectionText": "Also in the lab\n\nSmaller builds, apps in progress and experiments. Each links to real source; the state notes tell you honestly where each one stands.\n\nAuralis\u2197\n(opens in a new tab)\nKotlin music player for Android \u2014 Room database, scanner and repository layer.\nin development\ncampusvault\u2197\n(opens in a new tab)\nFlutter study-resource app \u2014 admin dashboards, upload flows, hierarchical browsing.\nin development\nVIDEDIT\u2197\n(opens in a new tab)\nBrowser video-editor interface in TypeScript, with its own documented design system.\nin development\nLive-Users\u2197\n(opens in a new tab)\nRealtime presence counter \u2014 Express + Socket.IO backend, React frontend.\ncomplete \u00b7 small\ngemini\u2197\n(opens in a new tab)\nStatic chat web app on the Gemini API \u2014 plain HTML, CSS and JavaScript.\nexperiment\nrgbcontroler\u2197\n(opens in a new tab)\nRGB LED controller in Python \u2014 lighting effects with a UI.\nexperiment\n\nBrowse all repositories\n\u2197\n(opens in a new tab)"
+  },
+  {
+    "site": "preview",
+    "layout": "phone",
+    "control": "nav-contact",
+    "status": "pass",
+    "destination": "http://localhost:8080/#contact",
+    "scroll": 9886,
+    "sectionText": "Have something\nworth building?\n\nI\u2019m open to thoughtful collaborations, freelance inquiries, and conversations about software, AI and security.\n\nConnect on GitHub\n\u2197\n(opens in a new tab)\nBrowse repositories\n\u2197\n(opens in a new tab)\n\nGitHub is the best place to reach me.\n\nGlitchedPhoenix38"
+  },
+  {
+    "site": "preview",
+    "layout": "phone",
+    "control": "external links",
+    "status": "pass",
+    "links": [
+      {
+        "text": "GitHub\u2197 (opens in a new tab)",
+        "href": "https://github.com/GlitchedPhoenix38",
+        "target": "_blank"
+      },
+      {
+        "text": "GitHub profile\u2197 (opens in a new tab)",
+        "href": "https://github.com/GlitchedPhoenix38",
+        "target": "_blank"
+      },
+      {
+        "text": "Repository\u2197 (opens in a new tab)",
+        "href": "https://github.com/GlitchedPhoenix38/terminal-ai-assistant",
+        "target": "_blank"
+      },
+      {
+        "text": "Repository\u2197 (opens in a new tab)",
+        "href": "https://github.com/GlitchedPhoenix38/Audio-to-Text",
+        "target": "_blank"
+      },
+      {
+        "text": "Repository\u2197 (opens in a new tab)",
+        "href": "https://github.com/GlitchedPhoenix38/Text-to-Audio",
+        "target": "_blank"
+      },
+      {
+        "text": "Repository\u2197 (opens in a new tab)",
+        "href": "https://github.com/GlitchedPhoenix38/FREE-AI",
+        "target": "_blank"
+      },
+      {
+        "text": "Repository\u2197 (opens in a new tab)",
+        "href": "https://github.com/GlitchedPhoenix38/peronal_ai",
+        "target": "_blank"
+      },
+      {
+        "text": "Repository\u2197 (opens in a new tab)",
+        "href": "https://github.com/GlitchedPhoenix38/dual-space",
+        "target": "_blank"
+      },
+      {
+        "text": "Auralis\u2197 (opens in a new tab)",
+        "href": "https://github.com/GlitchedPhoenix38/Auralis",
+        "target": "_blank"
+      },
+      {
+        "text": "campusvault\u2197 (opens in a new tab)",
+        "href": "https://github.com/GlitchedPhoenix38/campusvault",
+        "target": "_blank"
+      },
+      {
+        "text": "VIDEDIT\u2197 (opens in a new tab)",
+        "href": "https://github.com/GlitchedPhoenix38/VIDEDIT",
+        "target": "_blank"
+      },
+      {
+        "text": "Live-Users\u2197 (opens in a new tab)",
+        "href": "https://github.com/GlitchedPhoenix38/Live-Users",
+        "target": "_blank"
+      },
+      {
+        "text": "gemini\u2197 (opens in a new tab)",
+        "href": "https://github.com/GlitchedPhoenix38/gemini",
+        "target": "_blank"
+      },
+      {
+        "text": "rgbcontroler\u2197 (opens in a new tab)",
+        "href": "https://github.com/GlitchedPhoenix38/rgbcontroler",
+        "target": "_blank"
+      },
+      {
+        "text": "Browse all repositories\u2197 (opens in a new tab)",
+        "href": "https://github.com/GlitchedPhoenix38?tab=repositories",
+        "target": "_blank"
+      },
+      {
+        "text": "Connect on GitHub\u2197 (opens in a new tab)",
+        "href": "https://github.com/GlitchedPhoenix38",
+        "target": "_blank"
+      },
+      {
+        "text": "Browse repositories\u2197 (opens in a new tab)",
+        "href": "https://github.com/GlitchedPhoenix38?tab=repositories",
+        "target": "_blank"
+      },
+      {
+        "text": "GitHub\u2197 (opens in a new tab)",
+        "href": "https://github.com/GlitchedPhoenix38",
+        "target": "_blank"
+      }
+    ]
+  },
+  {
+    "site": "preview",
+    "layout": "phone",
+    "control": "Escape menu",
+    "status": "pass"
+  },
+  {
+    "site": "preview",
+    "layout": "phone",
+    "control": "page",
+    "errors": [],
+    "overflow": false
+  }
+]

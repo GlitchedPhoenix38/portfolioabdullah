@@ -20,14 +20,41 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci --no-audit --no-fund
+
+      - name: Build static site for /portfolioabdullah/
+        env:
+          GITHUB_PAGES: "true"
+        run: npm run build
+
+      - name: Add GitHub Pages fallback and bypass files
+        run: |
+          set -euo pipefail
+          test -f .output/public/index.html
+          # GitHub Pages serves 404.html for unknown paths; hand them the app shell
+          # so client-side routing can render the in-app not-found page.
+          cp .output/public/index.html .output/public/404.html
+          # Do not let Jekyll reprocess the uploaded artifact.
+          touch .output/public/.nojekyll
+
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
         with:
           enablement: true
+
       - name: Upload static site
         uses: actions/upload-pages-artifact@v3
         with:
-          path: .
+          path: .output/public
+
   deploy:
     environment:
       name: github-pages

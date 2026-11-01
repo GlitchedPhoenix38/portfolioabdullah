@@ -1,0 +1,12 @@
+<div class="notes-wrap is-open" id="notes-mustaqeem">
+            <div class="notes-inner">
+              <h4>How it is built</h4>
+              <ul>
+                <li>Mic → openWakeWord (custom embedding from recorded wake phrases) → faster-whisper STT → AI → piper-tts reply → back to listening.</li>
+                <li>Actions go through a fixed registry of structured tools — open apps, system info, media and volume control, web search. No raw shell access is ever exposed.</li>
+                <li>Shutdown, reboot and delete require explicit confirmation; file access is confined to the home directory (own <code>security</code> module).</li>
+                <li>Provider-agnostic brain: any OpenAI-compatible endpoint via base URL + key + model, plus an offline rule-based fallback and optional SQLite history.</li>
+                <li>Five test suites in the repository cover AI, config, memory, security and tools.</li>
+              </ul>
+            </div>
+          </div>

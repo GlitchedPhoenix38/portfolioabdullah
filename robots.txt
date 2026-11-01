@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://glitchedphoenix38.github.io/portfolioabdullah/sitemap.xml

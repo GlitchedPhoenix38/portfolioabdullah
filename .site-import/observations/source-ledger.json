@@ -1,0 +1,524 @@
+{
+  "url": "https://glitchedphoenix38.github.io/portfolioabdullah/",
+  "desktop": {
+    "initial": {
+      "scrollY": 0,
+      "scrollHeight": 8236,
+      "header": {
+        "text": "AbdullahAnsari\nWork\nBackground\nStack\nLab\nContact\nGitHub↗\n(opens in a new tab)",
+        "position": "fixed",
+        "top": 0
+      },
+      "sections": [
+        {
+          "id": "",
+          "heading": "AI that stays\non your machine.",
+          "top": 0
+        },
+        {
+          "id": "work",
+          "heading": "Selected work",
+          "top": 1800
+        },
+        {
+          "id": "about",
+          "heading": "Background",
+          "top": 4915
+        },
+        {
+          "id": "stack",
+          "heading": "Tools I use",
+          "top": 5860
+        },
+        {
+          "id": "lab",
+          "heading": "Also in the lab",
+          "top": 6589
+        },
+        {
+          "id": "contact",
+          "heading": "Have something\nworth building?",
+          "top": 7375
+        }
+      ]
+    },
+    "bottom": {
+      "scrollY": 6436,
+      "scrollHeight": 8236,
+      "header": {
+        "text": "AbdullahAnsari\nWork\nBackground\nStack\nLab\nContact\nGitHub↗\n(opens in a new tab)",
+        "position": "fixed",
+        "top": 0
+      },
+      "sections": [
+        {
+          "id": "",
+          "heading": "AI that stays\non your machine.",
+          "top": 0
+        },
+        {
+          "id": "work",
+          "heading": "Selected work",
+          "top": 1800
+        },
+        {
+          "id": "about",
+          "heading": "Background",
+          "top": 4915
+        },
+        {
+          "id": "stack",
+          "heading": "Tools I use",
+          "top": 5860
+        },
+        {
+          "id": "lab",
+          "heading": "Also in the lab",
+          "top": 6589
+        },
+        {
+          "id": "contact",
+          "heading": "Have something\nworth building?",
+          "top": 7375
+        }
+      ]
+    },
+    "returned": {
+      "scrollY": 0,
+      "scrollHeight": 8236,
+      "header": {
+        "text": "AbdullahAnsari\nWork\nBackground\nStack\nLab\nContact\nGitHub↗\n(opens in a new tab)",
+        "position": "fixed",
+        "top": 0
+      },
+      "sections": [
+        {
+          "id": "",
+          "heading": "AI that stays\non your machine.",
+          "top": 0
+        },
+        {
+          "id": "work",
+          "heading": "Selected work",
+          "top": 1800
+        },
+        {
+          "id": "about",
+          "heading": "Background",
+          "top": 4915
+        },
+        {
+          "id": "stack",
+          "heading": "Tools I use",
+          "top": 5860
+        },
+        {
+          "id": "lab",
+          "heading": "Also in the lab",
+          "top": 6589
+        },
+        {
+          "id": "contact",
+          "heading": "Have something\nworth building?",
+          "top": 7375
+        }
+      ]
+    }
+  },
+  "mobile": {
+    "initial": {
+      "scrollY": 0,
+      "scrollHeight": 10730,
+      "header": {
+        "text": "AbdullahAnsari",
+        "position": "fixed",
+        "top": 0
+      },
+      "sections": [
+        {
+          "id": "",
+          "heading": "AI that stays\non your machine.",
+          "top": 0
+        },
+        {
+          "id": "work",
+          "heading": "Selected work",
+          "top": 890
+        },
+        {
+          "id": "about",
+          "heading": "Background",
+          "top": 5571
+        },
+        {
+          "id": "stack",
+          "heading": "Tools I use",
+          "top": 7130
+        },
+        {
+          "id": "lab",
+          "heading": "Also in the lab",
+          "top": 8757
+        },
+        {
+          "id": "contact",
+          "heading": "Have something\nworth building?",
+          "top": 9971
+        }
+      ]
+    },
+    "controls": [
+      {
+        "tag": "A",
+        "text": "Skip to content",
+        "aria": null,
+        "href": "#main"
+      },
+      {
+        "tag": "A",
+        "text": "AbdullahAnsari",
+        "aria": null,
+        "href": "#top"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "",
+        "aria": "Open navigation",
+        "href": null
+      },
+      {
+        "tag": "A",
+        "text": "Work",
+        "aria": null,
+        "href": "#work"
+      },
+      {
+        "tag": "A",
+        "text": "Background",
+        "aria": null,
+        "href": "#about"
+      },
+      {
+        "tag": "A",
+        "text": "Stack",
+        "aria": null,
+        "href": "#stack"
+      },
+      {
+        "tag": "A",
+        "text": "Lab",
+        "aria": null,
+        "href": "#lab"
+      },
+      {
+        "tag": "A",
+        "text": "Contact",
+        "aria": null,
+        "href": "#contact"
+      },
+      {
+        "tag": "A",
+        "text": "GitHub↗ (opens in a new tab)",
+        "aria": null,
+        "href": "https://github.com/GlitchedPhoenix38"
+      },
+      {
+        "tag": "A",
+        "text": "See selected work",
+        "aria": null,
+        "href": "#work"
+      },
+      {
+        "tag": "A",
+        "text": "GitHub profile\n↗\n(opens in a new tab)",
+        "aria": null,
+        "href": "https://github.com/GlitchedPhoenix38"
+      },
+      {
+        "tag": "A",
+        "text": "Repository\n↗\n(opens in a new tab)",
+        "aria": null,
+        "href": "https://github.com/GlitchedPhoenix38/terminal-ai-assistant"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Engineering notes",
+        "aria": null,
+        "href": null
+      },
+      {
+        "tag": "A",
+        "text": "Repository\n↗\n(opens in a new tab)",
+        "aria": null,
+        "href": "https://github.com/GlitchedPhoenix38/Audio-to-Text"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Engineering notes",
+        "aria": null,
+        "href": null
+      },
+      {
+        "tag": "A",
+        "text": "Repository\n↗\n(opens in a new tab)",
+        "aria": null,
+        "href": "https://github.com/GlitchedPhoenix38/Text-to-Audio"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Engineering notes",
+        "aria": null,
+        "href": null
+      },
+      {
+        "tag": "A",
+        "text": "Repository\n↗\n(opens in a new tab)",
+        "aria": null,
+        "href": "https://github.com/GlitchedPhoenix38/FREE-AI"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Engineering notes",
+        "aria": null,
+        "href": null
+      },
+      {
+        "tag": "A",
+        "text": "Repository\n↗\n(opens in a new tab)",
+        "aria": null,
+        "href": "https://github.com/GlitchedPhoenix38/peronal_ai"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Engineering notes",
+        "aria": null,
+        "href": null
+      },
+      {
+        "tag": "A",
+        "text": "Repository\n↗\n(opens in a new tab)",
+        "aria": null,
+        "href": "https://github.com/GlitchedPhoenix38/dual-space"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Engineering notes",
+        "aria": null,
+        "href": null
+      },
+      {
+        "tag": "A",
+        "text": "Auralis↗\n(opens in a new tab)",
+        "aria": null,
+        "href": "https://github.com/GlitchedPhoenix38/Auralis"
+      },
+      {
+        "tag": "A",
+        "text": "campusvault↗\n(opens in a new tab)",
+        "aria": null,
+        "href": "https://github.com/GlitchedPhoenix38/campusvault"
+      },
+      {
+        "tag": "A",
+        "text": "VIDEDIT↗\n(opens in a new tab)",
+        "aria": null,
+        "href": "https://github.com/GlitchedPhoenix38/VIDEDIT"
+      },
+      {
+        "tag": "A",
+        "text": "Live-Users↗\n(opens in a new tab)",
+        "aria": null,
+        "href": "https://github.com/GlitchedPhoenix38/Live-Users"
+      },
+      {
+        "tag": "A",
+        "text": "gemini↗\n(opens in a new tab)",
+        "aria": null,
+        "href": "https://github.com/GlitchedPhoenix38/gemini"
+      },
+      {
+        "tag": "A",
+        "text": "rgbcontroler↗\n(opens in a new tab)",
+        "aria": null,
+        "href": "https://github.com/GlitchedPhoenix38/rgbcontroler"
+      },
+      {
+        "tag": "A",
+        "text": "Browse all repositories\n↗\n(opens in a new tab)",
+        "aria": null,
+        "href": "https://github.com/GlitchedPhoenix38?tab=repositories"
+      },
+      {
+        "tag": "A",
+        "text": "Connect on GitHub\n↗\n(opens in a new tab)",
+        "aria": null,
+        "href": "https://github.com/GlitchedPhoenix38"
+      },
+      {
+        "tag": "A",
+        "text": "Browse repositories\n↗\n(opens in a new tab)",
+        "aria": null,
+        "href": "https://github.com/GlitchedPhoenix38?tab=repositories"
+      },
+      {
+        "tag": "A",
+        "text": "GitHub↗\n(opens in a new tab)",
+        "aria": null,
+        "href": "https://github.com/GlitchedPhoenix38"
+      },
+      {
+        "tag": "A",
+        "text": "Back to top",
+        "aria": null,
+        "href": "#top"
+      }
+    ]
+  },
+  "interactions": [
+    {
+      "control": "AbdullahAnsari",
+      "href": "#top",
+      "url": "https://glitchedphoenix38.github.io/portfolioabdullah/#top",
+      "scrollY": 0,
+      "header": {
+        "position": "fixed",
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 1280,
+          "height": 69,
+          "top": 0,
+          "right": 1280,
+          "bottom": 69,
+          "left": 0
+        }
+      }
+    },
+    {
+      "control": "Work",
+      "href": "#work",
+      "url": "https://glitchedphoenix38.github.io/portfolioabdullah/#work",
+      "scrollY": 1712,
+      "header": {
+        "position": "fixed",
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 1280,
+          "height": 69,
+          "top": 0,
+          "right": 1280,
+          "bottom": 69,
+          "left": 0
+        }
+      }
+    },
+    {
+      "control": "Background",
+      "href": "#about",
+      "url": "https://glitchedphoenix38.github.io/portfolioabdullah/#about",
+      "scrollY": 4827,
+      "header": {
+        "position": "fixed",
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 1280,
+          "height": 69,
+          "top": 0,
+          "right": 1280,
+          "bottom": 69,
+          "left": 0
+        }
+      }
+    },
+    {
+      "control": "Stack",
+      "href": "#stack",
+      "url": "https://glitchedphoenix38.github.io/portfolioabdullah/#stack",
+      "scrollY": 5772,
+      "header": {
+        "position": "fixed",
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 1280,
+          "height": 69,
+          "top": 0,
+          "right": 1280,
+          "bottom": 69,
+          "left": 0
+        }
+      }
+    },
+    {
+      "control": "Lab",
+      "href": "#lab",
+      "url": "https://glitchedphoenix38.github.io/portfolioabdullah/#lab",
+      "scrollY": 6436,
+      "header": {
+        "position": "fixed",
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 1280,
+          "height": 69,
+          "top": 0,
+          "right": 1280,
+          "bottom": 69,
+          "left": 0
+        }
+      }
+    },
+    {
+      "control": "Contact",
+      "href": "#contact",
+      "url": "https://glitchedphoenix38.github.io/portfolioabdullah/#contact",
+      "scrollY": 6436,
+      "header": {
+        "position": "fixed",
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 1280,
+          "height": 69,
+          "top": 0,
+          "right": 1280,
+          "bottom": 69,
+          "left": 0
+        }
+      }
+    }
+  ],
+  "details_count": 0,
+  "assets": {
+    "images": [],
+    "videos": [],
+    "audios": [],
+    "backgrounds": [
+      "linear-gradient(90deg, rgb(139, 104, 255), rgb(124, 212, 238))",
+      "radial-gradient(560px at 1101.13px 33.99px, rgba(139, 104, 255, 0.075), rgba(0, 0, 0, 0) 62%)",
+      "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='linear' slope='0.05'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E\")",
+      "radial-gradient(900px 480px at 78% 18%, rgba(91, 63, 214, 0.17), rgba(0, 0, 0, 0) 65%), radial-gradient(700px 420px at 12% 82%, rgba(124, 212, 238, 0.07), rgba(0, 0, 0, 0) 60%)",
+      "radial-gradient(420px, rgba(139, 104, 255, 0.1), rgba(0, 0, 0, 0) 55%)",
+      "radial-gradient(320px 200px at 50% 42%, rgba(91, 63, 214, 0.16), rgba(0, 0, 0, 0) 70%), none",
+      "radial-gradient(420px, rgba(139, 104, 255, 0.1), rgba(0, 0, 0, 0) 55%)",
+      "radial-gradient(320px 200px at 50% 42%, rgba(91, 63, 214, 0.16), rgba(0, 0, 0, 0) 70%), none",
+      "radial-gradient(420px, rgba(139, 104, 255, 0.1), rgba(0, 0, 0, 0) 55%)",
+      "radial-gradient(320px 200px at 50% 42%, rgba(91, 63, 214, 0.16), rgba(0, 0, 0, 0) 70%), none",
+      "radial-gradient(420px, rgba(139, 104, 255, 0.1), rgba(0, 0, 0, 0) 55%)",
+      "radial-gradient(320px 200px at 50% 42%, rgba(91, 63, 214, 0.16), rgba(0, 0, 0, 0) 70%), none",
+      "radial-gradient(420px, rgba(139, 104, 255, 0.1), rgba(0, 0, 0, 0) 55%)",
+      "radial-gradient(320px 200px at 50% 42%, rgba(91, 63, 214, 0.16), rgba(0, 0, 0, 0) 70%), none",
+      "radial-gradient(420px, rgba(139, 104, 255, 0.1), rgba(0, 0, 0, 0) 55%)",
+      "radial-gradient(320px 200px at 50% 42%, rgba(91, 63, 214, 0.16), rgba(0, 0, 0, 0) 70%), none",
+      "radial-gradient(760px 400px at 82% 0%, rgba(91, 63, 214, 0.2), rgba(0, 0, 0, 0) 62%), none"
+    ]
+  },
+  "scrolling": {
+    "doc": 8236,
+    "body": 8236,
+    "active": "HTML",
+    "internal": []
+  }
+}
