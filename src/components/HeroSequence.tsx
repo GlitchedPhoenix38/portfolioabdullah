@@ -194,7 +194,9 @@ export function HeroSequence({
       const rect = canvas.getBoundingClientRect();
       if (!rect.width || !rect.height) return;
 
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      // A 1.5x backing store keeps the sequence crisp while reducing canvas
+      // pixel work substantially on high-DPI displays.
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
       const width = Math.round(rect.width * dpr);
       const height = Math.round(rect.height * dpr);
       if (canvas.width === width && canvas.height === height) return;
@@ -305,7 +307,9 @@ export function HeroSequence({
       if (Math.abs(frame - lastEvictFrameRef.current) < 16) return;
       lastEvictFrameRef.current = frame;
 
-      const radius = window.innerWidth < MOBILE_BREAKPOINT ? 40 : 90;
+      // Keep a bounded decoded-image window. Large decoded JPEG caches can
+      // consume hundreds of megabytes even though the source files are small.
+      const radius = window.innerWidth < MOBILE_BREAKPOINT ? 28 : 48;
       for (let index = 1; index <= total; index += 1) {
         if (index === 1 || index === total || index === frame) continue;
         if (Math.abs(index - frame) <= radius) continue;
