@@ -67,3 +67,76 @@
 .hero { min-height:670px; }
 @media(max-width:760px) { .hero {min-height:790px;} .hero::before {background:linear-gradient(180deg,var(--background),color-mix(in oklch,var(--background) 85%,transparent) 30%,color-mix(in oklch,var(--background) 40%,transparent) 70%,var(--background));} }
 @media(prefers-reduced-motion:reduce) { .portfolio::before { background:none; } }
+
+/* Hero scroll sequence. The stage stays full-viewport; the 58px header
+   clearance is applied to the hero content and subtracted from the pin travel. */
+.hero.hero-sequence {
+ --hero-header-clearance:58px;
+ --hero-scrub:calc(180svh - var(--hero-header-clearance));
+ position:relative;
+ display:block;
+ height:calc(100svh + var(--hero-scrub));
+ min-height:0;
+ max-height:none;
+ isolation:isolate;
+}
+.hero.hero-sequence::before { display:none; }
+.hero-sequence__sticky {
+ position:sticky;
+ top:0;
+ height:100svh;
+ overflow:hidden;
+ background:#000;
+ isolation:isolate;
+}
+.hero-sequence__poster,
+.hero-sequence__canvas {
+ position:absolute;
+ inset:0;
+ width:100%;
+ height:100%;
+ display:block;
+}
+.hero-sequence__poster {
+ object-fit:cover;
+ object-position:center;
+ z-index:0;
+ opacity:1;
+}
+.hero-sequence__canvas {
+ z-index:1;
+ opacity:0;
+ pointer-events:none;
+}
+.hero-sequence[data-ready="true"] .hero-sequence__canvas { opacity:1; }
+.hero-sequence__scrim {
+ position:absolute;
+ inset:0;
+ z-index:2;
+ pointer-events:none;
+ background:linear-gradient(90deg,var(--background),color-mix(in oklch,var(--background) 80%,transparent) 28%,transparent 80%),linear-gradient(0deg,var(--background),transparent 26%);
+}
+.hero-sequence__content {
+ position:relative;
+ z-index:3;
+ display:flex;
+ align-items:center;
+ width:100%;
+ height:100%;
+ min-width:0;
+}
+.hero-sequence__content .hero-inner { padding-top:max(100px,calc(var(--hero-header-clearance) + 42px)); }
+@media(max-width:760px) {
+ .hero-sequence__poster { object-position:66% center; opacity:.8; }
+ .hero-sequence__content { align-items:flex-start; }
+ .hero-sequence__content .hero-inner { padding-top:calc(var(--hero-header-clearance) + 84px); }
+ .hero-sequence__scrim { background:linear-gradient(180deg,var(--background),color-mix(in oklch,var(--background) 85%,transparent) 30%,color-mix(in oklch,var(--background) 40%,transparent) 70%,var(--background)); }
+}
+@media(max-width:430px) {
+ .hero-sequence__poster { object-position:58% center; }
+}
+@media(prefers-reduced-motion:reduce) {
+ .hero.hero-sequence { height:100svh; }
+ .hero-sequence__sticky { position:relative; height:100svh; }
+ .hero-sequence__canvas { display:none; }
+}
