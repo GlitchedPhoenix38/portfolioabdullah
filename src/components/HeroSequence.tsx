@@ -56,7 +56,6 @@ export function HeroSequence({
   const requestedFrameRef = useRef(1);
   const lastDrawnFrameRef = useRef(-1);
   const lastDrawnFallbackRef = useRef(-1);
-  const nextSequentialRef = useRef(1);
   const lastEvictFrameRef = useRef(1);
   const rafRef = useRef<number | null>(null);
   const destroyedRef = useRef(false);
@@ -99,7 +98,6 @@ export function HeroSequence({
     requestedFrameRef.current = 1;
     lastDrawnFrameRef.current = -1;
     lastDrawnFallbackRef.current = -1;
-    nextSequentialRef.current = 2;
     lastEvictFrameRef.current = 1;
     setReady(false);
 
@@ -227,13 +225,6 @@ export function HeroSequence({
       priorityRef.current = [];
       prioritySetRef.current.clear();
 
-      // Keep sequential preloading moving forward from the current window,
-      // rather than downloading old frames after a user jumps deep into the page.
-      nextSequentialRef.current = Math.max(
-        nextSequentialRef.current,
-        Math.min(total + 1, frame + ahead + 1),
-      );
-
       queueFrame(frame);
       for (let offset = 1; offset <= ahead; offset += 1) {
         queueFrame(frame + offset);
@@ -308,15 +299,6 @@ export function HeroSequence({
         loadFrame(index);
       }
 
-      while (inflightRef.current.size < concurrency) {
-        let index = nextSequentialRef.current;
-        while (index <= total && (loadedRef.current[index] || inflightRef.current.has(index))) {
-          index += 1;
-        }
-        if (index > total) break;
-        nextSequentialRef.current = index + 1;
-        loadFrame(index);
-      }
     };
 
     const evictDistant = (frame: number) => {
@@ -353,6 +335,7 @@ export function HeroSequence({
       if (!reducedRef.current) {
         renderCurrent();
         queueNearby(frame);
+        pump();
         evictDistant(frame);
       }
     };
@@ -381,7 +364,6 @@ export function HeroSequence({
 
       if (!event.matches) {
         if (!loadedRef.current[1]) loadFrame(1);
-        if (total > 1 && !loadedRef.current[total]) loadFrame(total);
         queueNearby(requestedFrameRef.current);
         pump();
         scheduleSync();
@@ -396,8 +378,8 @@ export function HeroSequence({
 
     if (!reducedRef.current) {
       loadFrame(1);
-      if (total > 1) loadFrame(total);
       queueNearby(1);
+      pump();
     }
 
     window.addEventListener("scroll", onScroll, { passive: true });
