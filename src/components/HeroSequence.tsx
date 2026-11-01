@@ -124,18 +124,31 @@ export function HeroSequence({
       context.fillStyle = "#000000";
       context.fillRect(0, 0, canvasWidth, canvasHeight);
       context.drawImage(image, offsetX, offsetY, drawWidth, drawHeight);
+      // If we temporarily hid the canvas while waiting for a nearby frame,
+      // let the CSS readiness state control its visibility again.
+      canvas.style.opacity = "";
       setData("heroDrawn", String(index));
     };
 
     const findNearest = (target: number) => {
-      for (let offset = 0; offset < total; offset += 1) {
+      // Only search the cache window. A full 483-frame scan on every scroll
+      // frame is wasted work, and a very distant frame looks worse than the
+      // poster while the requested frame is loading.
+      const maxDistance = Math.min(
+        total,
+        window.innerWidth < MOBILE_BREAKPOINT ? 48 : 96,
+      );
+
+      for (let offset = 0; offset <= maxDistance; offset += 1) {
         const left = target - offset;
         const right = target + offset;
+
         if (left >= 1 && loadedRef.current[left] && imagesRef.current[left]) {
           return { image: imagesRef.current[left] as HTMLImageElement, index: left };
         }
+
         if (
-          right !== left &&
+          offset > 0 &&
           right <= total &&
           loadedRef.current[right] &&
           imagesRef.current[right]
@@ -143,6 +156,7 @@ export function HeroSequence({
           return { image: imagesRef.current[right] as HTMLImageElement, index: right };
         }
       }
+
       return null;
     };
 
@@ -166,7 +180,12 @@ export function HeroSequence({
 
       const nearest = findNearest(requested);
       setData("heroExact", "false");
-      if (!nearest) return;
+      if (!nearest) {
+        // Reveal the static poster instead of leaving a stale frame on screen
+        // after a fast scroll to a part of the sequence that is not cached yet.
+        canvas.style.opacity = "0";
+        return;
+      }
       if (!force && lastDrawnFallbackRef.current === nearest.index) return;
       draw(nearest.image, nearest.index);
       lastDrawnFrameRef.current = -1;
@@ -202,16 +221,25 @@ export function HeroSequence({
     const queueNearby = (frame: number) => {
       const behind = 16;
       const ahead = 32;
-      for (let offset = 0; offset <= ahead; offset += 1) {
+
+      // Discard queued requests from an old scroll position. Otherwise a fast
+      // scroll can leave dozens of obsolete frames ahead of the current frame.
+      priorityRef.current = [];
+      prioritySetRef.current.clear();
+
+      // Keep sequential preloading moving forward from the current window,
+      // rather than downloading old frames after a user jumps deep into the page.
+      nextSequentialRef.current = Math.max(
+        nextSequentialRef.current,
+        Math.min(total + 1, frame + ahead + 1),
+      );
+
+      queueFrame(frame);
+      for (let offset = 1; offset <= ahead; offset += 1) {
         queueFrame(frame + offset);
-        queueFrame(frame - offset);
       }
-      for (
-        let index = Math.max(1, frame - behind);
-        index <= Math.min(total, frame + ahead);
-        index += 1
-      ) {
-        queueFrame(index);
+      for (let offset = 1; offset <= behind; offset += 1) {
+        queueFrame(frame - offset);
       }
     };
 
@@ -314,8 +342,13 @@ export function HeroSequence({
       const frame = clamp(1 + Math.round(progress * (total - 1)), 1, total);
 
       requestedFrameRef.current = frame;
-      setData("heroProgress", progress.toFixed(6));
-      setData("heroFrame", String(frame));
+
+      // Keep diagnostic attributes in sync only when the displayed frame
+      // changes; mutating data attributes on every scroll event is unnecessary.
+      if (wrapper.dataset.heroFrame !== String(frame)) {
+        setData("heroFrame", String(frame));
+        setData("heroProgress", progress.toFixed(4));
+      }
 
       if (!reducedRef.current) {
         renderCurrent();
