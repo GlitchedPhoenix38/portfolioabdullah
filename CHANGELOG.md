@@ -1,5 +1,14 @@
 # Changelog
 
+## 2026-11-02 — Stop hero sequence from jumping between cached frames
+
+- **Request:** Investigate intermittent frame skipping where the hero appears to jump from the requested frame to much later frames (for example, around 110 to 135 to 180).
+- **Cause found:** The renderer selected and drew the nearest already-cached frame whenever the exact requested frame had not finished loading. During scrolling, that could display a much later or earlier frame instead of preserving the current visual position.
+- **Changed:** In `src/components/HeroSequence.tsx`, removed nearest-cached-frame substitution. The canvas now holds the last successfully drawn frame until the exact requested frame is decoded, then draws that exact frame. Removed the now-unused nearest-frame search logic.
+- **Preserved:** All 483 JPEG assets, their numbering and image content, scroll-to-frame mapping, and sequence duration.
+- **Validation:** Re-fetched the updated source after committing. No local lint, tests, production build, browser test or live deployment check has been run yet.
+- **Commit(s):** Renderer change `84ec1691f2ba94ee86a3003296622bee140926b0`; obsolete fallback removal `eefa302d896496df175d3332cf54c98429fe22dd`.
+
 ## 2026-11-02 — Prevent dark flashes during hero frame loading
 
 - **Request:** Investigate and fix intermittent dark flashes in the 483-frame Home hero sequence.
