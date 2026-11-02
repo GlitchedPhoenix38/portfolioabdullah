@@ -179,9 +179,10 @@ export function HeroSequence({
       const nearest = findNearest(requested);
       setData("heroExact", "false");
       if (!nearest) {
-        // Reveal the static poster instead of leaving a stale frame on screen
-        // after a fast scroll to a part of the sequence that is not cached yet.
-        canvas.style.opacity = "0";
+        // Keep the last successfully rendered frame visible while the requested
+        // region loads. Hiding the canvas reveals the first-frame poster, which
+        // is intentionally almost black and looks like a brightness flash.
+        canvas.style.opacity = "";
         return;
       }
       if (!force && lastDrawnFallbackRef.current === nearest.index) return;
