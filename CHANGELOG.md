@@ -1,3 +1,11 @@
+## 2026-11-02 — Remove redundant JPEG sequence from deployed assets
+
+- **Request:** Eliminate the duplicate hero asset setup while keeping the user's verified 4 MB MP4.
+- **Changed:** Kept `public/hero-sequence.mp4` unchanged. Moved the first JPEG frame to `public/hero-poster.jpg`, updated `src/routes/index.tsx` to use that poster, and removed the 482 remaining JPEG frames plus the old `public/hero-frames/` directory from the branch.
+- **Preserved:** The MP4 blob and its exact contents, scroll-scrubbing implementation, hero overlay/content, and a static poster fallback. This is an asset cleanup, not a video re-encode.
+- **Validation:** Confirmed the MP4 remains the same existing repository asset; verified the poster source exists and the route reference is updated. No lint, tests, production build, browser test or Pages deployment check was run.
+- **Commit:** Pending.
+
 # Changelog
 
 ## 2026-11-02 — Prepare video-based scroll-scrubbed hero
