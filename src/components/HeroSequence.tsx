@@ -176,19 +176,12 @@ export function HeroSequence({
         return;
       }
 
-      const nearest = findNearest(requested);
+      // Do not draw an arbitrary nearby cached frame here. That makes the
+      // animation appear to jump (for example 110 -> 135 -> 180) whenever the
+      // exact requested frame is still loading. Hold the last exact frame until
+      // this requested frame has decoded.
       setData("heroExact", "false");
-      if (!nearest) {
-        // Keep the last successfully rendered frame visible while the requested
-        // region loads. Hiding the canvas reveals the first-frame poster, which
-        // is intentionally almost black and looks like a brightness flash.
-        canvas.style.opacity = "";
-        return;
-      }
-      if (!force && lastDrawnFallbackRef.current === nearest.index) return;
-      draw(nearest.image, nearest.index);
-      lastDrawnFrameRef.current = -1;
-      lastDrawnFallbackRef.current = nearest.index;
+      canvas.style.opacity = "";
     };
 
     const resizeCanvas = () => {
