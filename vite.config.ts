@@ -1,4 +1,4 @@
-// @lovable.dev/vite-tanstack-config already includes the following — do NOT add them manually
+// The shared Vite/TanStack config package already includes the following — do NOT add them manually
 // or the app will break with duplicate plugins:
 //   - TanStack devtools (dev-only, first), tanstackStart, viteReact, tailwindcss, tsConfigPaths,
 //     nitro (build-only using cloudflare as a default target), VITE_* env injection, @ path alias,
@@ -7,7 +7,7 @@
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
 // GitHub Pages serves this project from a subdirectory, so assets and the router
-// need the matching base path. Everything stays at the root for local dev/Lovable.
+// need the matching base path. Local development uses the root path.
 const GITHUB_PAGES_BASE = "/portfolioabdullah/";
 const isGithubPagesBuild = process.env.GITHUB_PAGES === "true";
 const base = isGithubPagesBuild ? GITHUB_PAGES_BASE : "/";
