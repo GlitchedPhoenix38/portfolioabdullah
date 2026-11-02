@@ -234,3 +234,8 @@ After editing:
 ```
 
 This makes the repository self-documenting and gives future AI assistants a reliable handoff instead of requiring access to previous conversations.
+
+
+## 10. Initial loading screen
+
+The first-visit loading overlay uses `public/loader-sanctuary.jpg` as a full-viewport static background. It appears immediately, stays for at least 3 seconds after the React page mounts, then fades away over 700ms to reveal the portfolio. The current progress treatment is a simple indeterminate line and text; the custom animation and background video are intentionally deferred to a later step.
