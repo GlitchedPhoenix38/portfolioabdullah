@@ -1,3 +1,11 @@
+## 2026-11-03 — Slow hero scroll progression to 80% of original speed
+
+- **Request:** Reduce the hero animation's scroll-driven playback speed to 80% of its original speed on mobile and desktop.
+- **Changed:** Increased the shared scrub-distance multiplier from 1.15x to 1.25x in `src/components/HeroSequence.tsx`. This spreads the same 483 frames across 25% more scroll distance, which makes frame progression run at 80% of the original baseline rate.
+- **Preserved:** The 483 JPEG assets, frame loading and fallback behaviour, Home-to-Lab target, Contact video, and reduced-motion handling.
+- **Validation:** Source and documentation changes inspected. No local lint, test, production build or browser/device scroll test was run; GitHub Actions will validate the deployment build after the commit.
+- **Commit:** pending.
+
 ## 2026-11-02 — Reduce hero scroll sensitivity across devices
 
 - **Request:** Slow down the Home hero frame progression on mobile and laptop/desktop scrolling.

@@ -6,7 +6,7 @@ const MOBILE_BREAKPOINT = 768;
 const MOBILE_CONCURRENCY = 4;
 const DESKTOP_CONCURRENCY = 8;
 // Spread the same 483 frames over 15% more scroll distance on every device.
-const SCROLL_SENSITIVITY = 1.15;
+const SCROLL_SENSITIVITY = 1.25;
 
 type HeroSequenceProps = {
   poster: string;

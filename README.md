@@ -102,7 +102,7 @@ The active page imports `HeroSequence` from `@/components/HeroSequence`. Do not 
 
 ## 5. Hero image sequence
 
-The Home hero uses an image sequence from the separate animation project. Its 483 frames are spread across 15% more scroll distance than the measured Home-to-Lab span, reducing scroll sensitivity consistently on mobile and desktop; the final frame therefore completes slightly farther into Lab.
+The Home hero uses an image sequence from the separate animation project. Its 483 frames are spread across 25% more scroll distance than the measured Home-to-Lab span, reducing scroll sensitivity consistently on mobile and desktop; the final frame therefore completes slightly farther into Lab.
 
 Known sequence details:
 
