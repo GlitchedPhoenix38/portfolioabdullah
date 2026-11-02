@@ -1,3 +1,11 @@
+## 2026-11-02 — Improve mobile and fast-scroll hero frame playback
+
+- **Request:** Fix the 483-frame hero sequence appearing frozen during scrolling, especially on mobile, then updating only after scrolling stops.
+- **Changed:** Updated `src/components/HeroSequence.tsx` to draw the nearest already-decoded frame while the exact requested frame loads, then replace it with the exact frame when decoding completes. Large scroll jumps now cancel obsolete in-flight image requests so stale downloads cannot occupy all mobile loading slots. Late decode callbacks from cancelled requests are ignored.
+- **Preserved:** All 483 original JPEG assets, frame order, scroll-to-frame mapping, Home-to-Lab scrub range, canvas sizing, reduced-motion handling, and the Contact video.
+- **Validation:** Source-level changes inspected. No local lint, test, production build, device test or browser scroll test was run in this environment; GitHub Actions will validate the deployment build after the commit.
+- **Commit:** pending.
+
 ## 2026-11-02 — Add cinematic video background to Contact
 
 - **Request:** Use the supplied `contact.mp4` as the Contact section background.

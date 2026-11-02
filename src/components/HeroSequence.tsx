@@ -146,12 +146,29 @@ export function HeroSequence({
         return;
       }
 
-      // Do not draw an arbitrary nearby cached frame here. That makes the
-      // animation appear to jump (for example 110 -> 135 -> 180) whenever the
-      // exact requested frame is still loading. Hold the last exact frame until
-      // this requested frame has decoded.
+      // While the exact frame is loading, draw the closest decoded frame.
+      // This keeps the animation moving during touch-scroll instead of freezing
+      // on one frame until the network/decode queue catches up.
+      let fallbackIndex = -1;
+      for (let distance = 1; distance <= 24; distance += 1) {
+        const before = requested - distance;
+        const after = requested + distance;
+        if (before >= 1 && loadedRef.current[before] && imagesRef.current[before]) {
+          fallbackIndex = before;
+          break;
+        }
+        if (after <= total && loadedRef.current[after] && imagesRef.current[after]) {
+          fallbackIndex = after;
+          break;
+        }
+      }
+
       setData("heroExact", "false");
-      canvas.style.opacity = "";
+      if (fallbackIndex !== -1 && lastDrawnFrameRef.current !== fallbackIndex) {
+        draw(imagesRef.current[fallbackIndex] as HTMLImageElement, fallbackIndex);
+        lastDrawnFrameRef.current = fallbackIndex;
+        setData("heroFallback", String(fallbackIndex));
+      }
     };
 
     const resizeCanvas = () => {
@@ -215,6 +232,9 @@ export function HeroSequence({
 
       image.onload = () => {
         const finish = () => {
+          // A request may have been cancelled after a newer scroll position
+          // made it obsolete. Ignore late decode callbacks from that request.
+          if (pendingRef.current.get(index) !== image) return;
           inflightRef.current.delete(index);
           pendingRef.current.delete(index);
           if (destroyedRef.current) return;
@@ -242,6 +262,7 @@ export function HeroSequence({
       };
 
       image.onerror = () => {
+        if (pendingRef.current.get(index) !== image) return;
         inflightRef.current.delete(index);
         pendingRef.current.delete(index);
         if (destroyedRef.current) return;
@@ -279,6 +300,20 @@ export function HeroSequence({
         if (!loadedRef.current[index]) continue;
         imagesRef.current[index] = null;
         loadedRef.current[index] = false;
+      }
+    };
+
+    const cancelObsoleteRequests = (frame: number) => {
+      // Old in-flight downloads can occupy every mobile slot after a fast
+      // swipe. Cancel frames far from the current position so the exact frame
+      // and its immediate neighbours get bandwidth first.
+      for (const [index, image] of pendingRef.current) {
+        if (Math.abs(index - frame) <= 36) continue;
+        image.onload = null;
+        image.onerror = null;
+        image.src = "";
+        pendingRef.current.delete(index);
+        inflightRef.current.delete(index);
       }
     };
 
@@ -325,6 +360,7 @@ export function HeroSequence({
       }
 
       if (!reducedRef.current) {
+        cancelObsoleteRequests(frame);
         renderCurrent();
         queueNearby(frame);
         pump();

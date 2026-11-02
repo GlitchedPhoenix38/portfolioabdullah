@@ -115,7 +115,7 @@ Known sequence details:
   poster={`${import.meta.env.BASE_URL}hero-frames/frame_000001.jpg`}
   \`\`\`
 - The image sequence is intended to be the actual hero background, with existing hero content rendered above it.
-- While a requested frame is still loading, the canvas keeps the last successfully drawn frame visible. It must not be hidden to reveal the first-frame poster, because frame 1 is almost black and would look like a dark flash.
+- While the exact requested frame is loading, the canvas draws the nearest decoded frame (within a small frame window) so touch-scroll does not freeze on one image. The exact frame replaces the temporary fallback as soon as it decodes. Obsolete in-flight requests are cancelled after large scroll jumps so they cannot block current frames, especially on mobile. The canvas must not be hidden to reveal the first-frame poster, because frame 1 is almost black and would look like a dark flash.
 
 Asset URLs must use `import.meta.env.BASE_URL` (or an equivalent base-aware helper), not hard-coded root paths. This matters because the production site is deployed under `/portfolioabdullah/`, while local development uses `/`.
 
