@@ -1,5 +1,14 @@
 # Changelog
 
+## 2026-11-02 — Prevent dark flashes during hero frame loading
+
+- **Request:** Investigate and fix intermittent dark flashes in the 483-frame Home hero sequence.
+- **Changed:** In `src/components/HeroSequence.tsx`, changed the no-nearby-frame fallback to keep the last successfully rendered canvas frame visible while the requested frame loads. It no longer hides the canvas and exposes the almost-black first-frame poster during a fast scroll.
+- **Asset analysis:** Inspected the supplied `mergered video_frames.zip`: all 483 files decode as 1280×720 JPEGs and the prior structural inspection found no missing/corrupt files. A luminance pass across all frames shows frame 1 is near-black (mean luma ≈ 0.0043), consistent with the sequence's gradual opening fade. The sequence is intentionally very dark overall (mean luma across frames ≈ 0.089); the contact sheet shows a gradual reveal and later visual transformation, not random corrupted dark frames. The 97 duplicate pairs documented earlier create brief holds, not dark flashes.
+- **Preserved:** All 483 original image files, frame numbering, scroll mapping, poster, and animation timing.
+- **Validation:** Inspected all 483 source images and the fallback logic. Re-fetched the updated component and documentation. No browser reproduction, lint, tests or production build was run, so the deployed visual result still needs a live check.
+- **Commit:** `299d32ff0ad031d4affdb0afe60c77b301e56180`.
+
 ## 2026-11-02 — Remove unnecessary Lovable editor integration
 
 - **Request:** Search the portfolio for Lovable branding/integrations and remove only unnecessary pieces without breaking useful project tooling.
