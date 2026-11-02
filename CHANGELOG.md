@@ -1,3 +1,11 @@
+## 2026-11-02 — Reduce hero scroll sensitivity across devices
+
+- **Request:** Slow down the Home hero frame progression on mobile and laptop/desktop scrolling.
+- **Changed:** Added a shared 1.15x scrub-distance multiplier in `src/components/HeroSequence.tsx`. The same 483 frames now span 15% more scroll distance on every device, so each pixel of scrolling advances the animation less. The sequence finishes slightly farther into Lab.
+- **Preserved:** The 483 JPEG assets, frame loading and fallback behaviour, responsive canvas, Home content, Contact video and reduced-motion handling.
+- **Validation:** Source-level change inspected. No local lint, test, production build or browser/device scroll test was run; GitHub Actions will run the deployment build after the commit.
+- **Commit:** pending.
+
 ## 2026-11-02 — Improve mobile and fast-scroll hero frame playback
 
 - **Request:** Fix the 483-frame hero sequence appearing frozen during scrolling, especially on mobile, then updating only after scrolling stops.
