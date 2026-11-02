@@ -72,7 +72,8 @@
    clearance is applied to the hero content and subtracted from the pin travel. */
 .hero.hero-sequence {
  --hero-header-clearance:58px;
- --hero-scrub:calc(180svh - var(--hero-header-clearance));
+ --hero-base-scrub:calc(180svh - var(--hero-header-clearance));
+ --hero-scrub:var(--hero-base-scrub);
  position:relative;
  display:block;
  height:calc(100svh + var(--hero-scrub));
@@ -139,4 +140,17 @@
  .hero.hero-sequence { height:100svh; }
  .hero-sequence__sticky { position:relative; height:100svh; }
  .hero-sequence__canvas { display:none; }
+}
+
+
+/* Extend the JPEG sequence behind the page until the About section. */
+.hero.hero-sequence { z-index:0; }
+.hero-sequence__content {
+ opacity:var(--hero-content-opacity,1);
+ transition:opacity .12s linear;
+}
+.identity-strip,
+main > .section {
+ position:relative;
+ z-index:1;
 }

@@ -11,6 +11,7 @@ type HeroSequenceProps = {
   frameCount?: number;
   frameDirectory?: string;
   scrubDistance?: string;
+  endAt?: string;
   priorityFrames?: number;
   id?: string;
   className?: string;
@@ -39,6 +40,7 @@ export function HeroSequence({
   frameCount = DEFAULT_FRAME_COUNT,
   frameDirectory = "hero-frames",
   scrubDistance,
+  endAt,
   priorityFrames = DEFAULT_PRIORITY_FRAMES,
   id,
   className,
@@ -76,6 +78,7 @@ export function HeroSequence({
     if (!context) return;
 
     const stage = wrapper.querySelector<HTMLElement>(".hero-sequence__sticky");
+    const content = wrapper.querySelector<HTMLElement>(".hero-sequence__content");
     const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
 
     destroyedRef.current = false;
@@ -280,11 +283,36 @@ export function HeroSequence({
     };
 
     const sync = () => {
-      const rect = wrapper.getBoundingClientRect();
+      const wrapperTop = wrapper.getBoundingClientRect().top + window.scrollY;
       const stageHeight = stage?.getBoundingClientRect().height || window.innerHeight;
-      const scrollable = rect.height - stageHeight;
-      const wrapperTop = rect.top + window.scrollY;
-      const progress = scrollable > 0 ? clamp((window.scrollY - wrapperTop) / scrollable, 0, 1) : 0;
+
+      // When endAt is supplied, stretch the sticky stage until that section
+      // reaches the top of the viewport. A compensating negative margin keeps
+      // the following page sections in their original document positions.
+      if (endAt && !reducedRef.current) {
+        const endSection = document.getElementById(endAt);
+        if (endSection) {
+          const targetDistance = Math.max(
+            stageHeight,
+            endSection.getBoundingClientRect().top - wrapper.getBoundingClientRect().top,
+          );
+          wrapper.style.setProperty("--hero-scrub", `${targetDistance}px`);
+          wrapper.style.marginBottom = "calc(var(--hero-base-scrub) - var(--hero-scrub))";
+        }
+      } else if (endAt && reducedRef.current) {
+        wrapper.style.removeProperty("margin-bottom");
+        if (!scrubDistance) wrapper.style.removeProperty("--hero-scrub");
+      }
+
+      const rect = wrapper.getBoundingClientRect();
+      const scrollable = Math.max(0, rect.height - stageHeight);
+      const distance = window.scrollY - wrapperTop;
+      const progress = scrollable > 0 ? clamp(distance / scrollable, 0, 1) : 0;
+      if (content && endAt) {
+        const contentProgress = clamp(distance / (stageHeight * 0.72), 0, 1);
+        wrapper.style.setProperty("--hero-content-opacity", String(1 - contentProgress));
+        content.style.pointerEvents = contentProgress >= 1 ? "none" : "";
+      }
       const frame = clamp(1 + Math.round(progress * (total - 1)), 1, total);
 
       requestedFrameRef.current = frame;
@@ -359,6 +387,11 @@ export function HeroSequence({
       document.removeEventListener("visibilitychange", onVisibilityChange);
       motionQuery.removeEventListener("change", onMotionChange);
       resizeObserver?.disconnect();
+      if (endAt) {
+        wrapper.style.removeProperty("margin-bottom");
+        wrapper.style.removeProperty("--hero-content-opacity");
+        if (!scrubDistance) wrapper.style.removeProperty("--hero-scrub");
+      }
       if (rafRef.current !== null) {
         window.cancelAnimationFrame(rafRef.current);
         rafRef.current = null;
@@ -378,7 +411,7 @@ export function HeroSequence({
       canvas.width = 0;
       canvas.height = 0;
     };
-  }, [frameDirectory, priorityFrames, total]);
+  }, [endAt, frameDirectory, priorityFrames, scrubDistance, total]);
 
   return (
     <section

@@ -1,3 +1,12 @@
+## 2026-11-02 — Extend the JPEG hero sequence through Work to About
+
+- **Request:** Start the 483-frame image animation at Home and finish it as the About section is reached.
+- **Changed:** Added an optional `endAt` target to `HeroSequence`. The Home instance now measures the About section's position and dynamically extends its sticky scroll range to that boundary. A compensating negative margin preserves the original positions of the identity strip, Work and About sections. The Home introduction fades away as the user scrolls into the page, while later sections render above the sequence; the final frame is held through the opening viewport of About.
+- **Accessibility:** The existing reduced-motion behaviour remains in place; the extended scroll range is disabled when reduced motion is preferred.
+- **Preserved:** All 483 JPEG assets, exact-frame rendering/loading logic, portfolio content and section order.
+- **Validation:** Source-level changes inspected. No local build, browser scroll test, lint or live deployment verification was run.
+- **Commit:** pending.
+
 ## 2026-11-02 — Restore JPEG-based hero sequence
 
 - **Request:** Return the portfolio to the last working-code version that used the 483 JPEG frames instead of the MP4 video.
