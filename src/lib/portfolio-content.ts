@@ -1,7 +1,7 @@
 export const projects = [
   {
-    "id": "mustaqeem",
-    "name": "Mustaqeem",
+    "id": "zayro",
+    "name": "Zayro",
     "kind": "Voice assistant · Linux",
     "status": "tests in repo",
     "description": "A terminal voice assistant for Arch Linux. The wake word, speech-to-text and spoken replies all run locally; only the reasoning step can use a configured OpenAI-compatible provider, with an offline rule-based fallback when nothing is configured.",
