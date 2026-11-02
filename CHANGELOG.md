@@ -1,3 +1,13 @@
+## 2026-11-02 — Add cinematic video background to Contact
+
+- **Request:** Use the supplied `contact.mp4` as the Contact section background.
+- **Changed:** Added a muted, looping, inline video layer to the Contact section, with a dark emerald overlay and responsive cover sizing. The page references `public/contact-background.mp4` through Vite's base URL.
+- **Media preparation:** The supplied 1920×1080, 24 FPS, 120-second H.264 source was re-encoded to 1280×720 H.264 at 24 FPS, with audio removed and fast-start metadata. The optimized file is approximately 6.4 MB.
+- **Preserved:** The Home → Work → About → Lab JPEG scroll sequence and all existing Contact copy, links and navigation.
+- **Asset status:** The optimized video is prepared locally but is not yet in the GitHub repository. Place it at `public/contact-background.mp4` before the background can appear on the live site.
+- **Validation:** Verified the optimized MP4 metadata and duration. No app build, lint, browser test or deployment was run.
+- **Commit:** pending.
+
 ## 2026-11-02 — Extend the JPEG hero sequence through Lab
 
 - **Request:** Extend the Home image sequence beyond About so all 483 frames finish as the Lab section is reached.
