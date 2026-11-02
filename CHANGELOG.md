@@ -1,3 +1,11 @@
+## 2026-11-03 — Apply extra-slow hero scrubbing on mobile
+
+- **Request:** Keep laptop/desktop hero scrolling at its current speed, but slow the animation a little more on mobile.
+- **Changed:** Split the scrub-distance multiplier by viewport width in `src/components/HeroSequence.tsx`: desktop remains at 1.25x (80% of baseline frame progression), while mobile uses 1.5x (about 66.7% of baseline progression).
+- **Preserved:** Desktop behaviour, all 483 JPEG assets, frame loading/fallback behaviour, Home-to-Lab target, Contact video and reduced-motion handling.
+- **Validation:** Source and documentation changes inspected. No local lint, test, production build or browser/device scroll test was run; GitHub Actions will validate the deployment build after the commit.
+- **Commit:** pending.
+
 ## 2026-11-03 — Slow hero scroll progression to 80% of original speed
 
 - **Request:** Reduce the hero animation's scroll-driven playback speed to 80% of its original speed on mobile and desktop.

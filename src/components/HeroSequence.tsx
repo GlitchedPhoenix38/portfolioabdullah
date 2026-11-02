@@ -5,8 +5,9 @@ const DEFAULT_PRIORITY_FRAMES = 30;
 const MOBILE_BREAKPOINT = 768;
 const MOBILE_CONCURRENCY = 4;
 const DESKTOP_CONCURRENCY = 8;
-// Spread the same 483 frames over 15% more scroll distance on every device.
-const SCROLL_SENSITIVITY = 1.25;
+// Desktop stays at 80% of baseline speed; mobile is slowed a little further.
+const DESKTOP_SCROLL_SENSITIVITY = 1.25;
+const MOBILE_SCROLL_SENSITIVITY = 1.5;
 
 type HeroSequenceProps = {
   poster: string;
@@ -335,7 +336,11 @@ export function HeroSequence({
           );
           // A longer scrub distance means fewer frame changes per pixel of
           // scrolling, consistently on touch devices and desktop trackpads.
-          const adjustedDistance = targetDistance * SCROLL_SENSITIVITY;
+          const sensitivity =
+            window.innerWidth < MOBILE_BREAKPOINT
+              ? MOBILE_SCROLL_SENSITIVITY
+              : DESKTOP_SCROLL_SENSITIVITY;
+          const adjustedDistance = targetDistance * sensitivity;
           wrapper.style.setProperty("--hero-scrub", `${adjustedDistance}px`);
           wrapper.style.marginBottom = "calc(var(--hero-base-scrub) - var(--hero-scrub))";
         }
