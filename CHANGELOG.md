@@ -6,7 +6,7 @@
 - **Preserved:** The Home → Work → About → Lab JPEG scroll sequence and all existing Contact copy, links and navigation.
 - **Asset status:** The optimized video is prepared locally but is not yet in the GitHub repository. Place it at `public/contact-background.mp4` before the background can appear on the live site.
 - **Validation:** Verified the optimized MP4 metadata and duration. No app build, lint, browser test or deployment was run.
-- **Commit:** pending.
+- **Commit:** `c2a345668256c2feaa6ba5ea43e313ba338eb28f` (source integration; optimized media file still awaiting upload).
 
 ## 2026-11-02 — Extend the JPEG hero sequence through Lab
 
