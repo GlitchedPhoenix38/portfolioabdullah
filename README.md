@@ -53,7 +53,7 @@ Use these as design-direction reference values; the actual CSS custom properties
 
 ### Motion principles
 
-- Home uses the existing scroll-controlled 483-frame JPEG hero sequence. The sequence scrubs from Home through the Work section and reaches its final frame as About enters the top of the viewport; the sticky image remains behind the opening viewport of About.
+- Home uses the existing scroll-controlled 483-frame JPEG hero sequence. The sequence scrubs from Home through Work and About, reaching its final frame as Lab enters the top of the viewport; the sticky image remains behind the opening viewport of Lab.
 - Other section animations are a future design task unless and until implemented and recorded here.
 - Motion should be purposeful and related to each section's subject.
 - Respect `prefers-reduced-motion`.

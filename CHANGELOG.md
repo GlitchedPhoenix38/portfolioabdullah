@@ -1,3 +1,11 @@
+## 2026-11-02 — Extend the JPEG hero sequence through Lab
+
+- **Request:** Extend the Home image sequence beyond About so all 483 frames finish as the Lab section is reached.
+- **Changed:** Updated the Home `HeroSequence` end target from `about` to `lab`. The existing dynamic measurement now maps the full scroll distance from Home through Work and About to the Lab boundary; the final frame is held as Lab enters the viewport.
+- **Preserved:** All 483 JPEG assets, frame loading/rendering behaviour, section positions, portfolio content, and reduced-motion handling.
+- **Validation:** Inspected the source and confirmed the Lab section uses `id="lab"`. No local build, browser scroll test or live deployment verification was run.
+- **Commit:** pending.
+
 ## 2026-11-02 — Extend the JPEG hero sequence through Work to About
 
 - **Request:** Start the 483-frame image animation at Home and finish it as the About section is reached.
