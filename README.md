@@ -88,7 +88,7 @@ Important paths:
 | `src/components/` | Shared UI and application components |
 | `src/styles.css` | Active global stylesheet imported by the root route |
 | `src/styles/site.css` | Legacy/unused stylesheet at the time of this documentation; verify imports before changing |
-| `src/lib/lovable-error-reporting.ts` | Error-reporting integration used by the current root error boundary; not a visible promotional badge |
+| `src/lib/` | Browser-safe shared utilities and portfolio content modules |
 | `public/hero-frames/` | Hero image-sequence frames served as static assets |
 | `public/emerald-engine.jpg` | Check current tree before assuming this exists; the former source asset under `src/assets` was removed |
 | `public/` | Static public assets such as favicon, social preview and robots/sitemap files |
@@ -194,11 +194,11 @@ For layout or interaction changes, inspect `src/routes/index.tsx` and the active
 - Do not remove build dependencies merely because their package names mention a tool. First determine whether the configuration depends on them.
 - Do not remove error handling or accessibility primitives as part of visual cleanup.
 
-## 10. Lovable-related code versus visible branding
+## 10. Build configuration and third-party tooling
 
-The repository currently contains Lovable-related development/build integration, including `@lovable.dev/vite-tanstack-config` and `src/lib/lovable-error-reporting.ts`. These are code/tooling references, not proof that a visible Lovable badge is rendered on the public website.
+The project currently uses `@lovable.dev/vite-tanstack-config` as its shared Vite/TanStack build configuration. It supplies required framework plugins, aliases, environment handling and build behaviour. It is retained because replacing it is a separate build-system migration and removing it without a tested replacement could break development or production builds.
 
-A request to remove a visible badge means remove only the actual badge element or injected visual branding after identifying its source. Do **not** remove the Vite configuration package, error reporting, unrelated code, or dependencies unless a separate migration is planned and tested.
+The editor-only Lovable error telemetry and connection-specific repository metadata were removed on 2026-11-02. A source search did not find an explicit visible “Made with Lovable” badge or badge component. If a badge still appears in a deployed preview, inspect the rendered page and hosting/editor injection rather than deleting unrelated application dependencies.
 
 ## 11. Handoff instructions for another AI or developer
 
