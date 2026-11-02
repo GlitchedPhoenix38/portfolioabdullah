@@ -1,5 +1,13 @@
 # Changelog
 
+## 2026-11-02 — Remove unnecessary Lovable editor integration
+
+- **Request:** Search the portfolio for Lovable branding/integrations and remove only unnecessary pieces without breaking useful project tooling.
+- **Changed:** Removed the editor-only error telemetry import/call from `src/routes/__root.tsx` and deleted `src/lib/lovable-error-reporting.ts`. Removed the obsolete Lovable connection warning block from `AGENTS.md`, cleaned Lovable-specific wording from `vite.config.ts`, and removed unused package exceptions from `bunfig.toml`.
+- **Preserved:** Kept `@lovable.dev/vite-tanstack-config` in `package.json` and both lockfiles because it is the active shared Vite/TanStack configuration package. The app's build setup depends on it; replacing it safely requires a separate migration and validation. No explicit visible “Made with Lovable” badge was found in source search.
+- **Validation:** Re-fetched and inspected the affected files and confirmed the root error boundary no longer imports the deleted module. No lint, tests, production build or live-site visual check was run.
+- **Commit(s):** Root cleanup `347b6fafc8050ad69a27c6069ef1fd5411e2633f`; telemetry file deletion `9549527edb775385273aa6db279ae183efd2ab16`; repository metadata cleanup `19e05eb99d89397c348f148af303205c331c11ad`; Vite comment cleanup `896cbb7d85f886f1617db18757c498d8f87ba12e`; Bun install exception cleanup `59f33b0e716c4c544cb87d1442aebd9b38a7e5a1`.
+
 Meaningful portfolio changes are recorded here in reverse chronological order. This file is intended to give future maintainers and AI assistants a durable record of what changed, why it changed, what was preserved and what was actually tested.
 
 For project structure, setup, architecture and handoff rules, see [README.md](./README.md).
