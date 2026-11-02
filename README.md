@@ -115,6 +115,7 @@ Known sequence details:
   \`\`\`
 - The image sequence is intended to be the actual hero background, with existing hero content rendered above it.
 - While a requested frame is still loading, the canvas keeps the last successfully drawn frame visible. It must not be hidden to reveal the first-frame poster, because frame 1 is almost black and would look like a dark flash.
+- The renderer must draw the exact requested frame when it is ready; it must not substitute an arbitrary nearest cached frame. Nearest-frame substitution makes the animation visibly jump ahead or backward during loading.
 
 Asset URLs must use `import.meta.env.BASE_URL` (or an equivalent base-aware helper), not hard-coded root paths. This matters because the production site is deployed under `/portfolioabdullah/`, while local development uses `/`.
 
