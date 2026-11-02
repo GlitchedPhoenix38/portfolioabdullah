@@ -90,7 +90,7 @@ Important paths:
 | `src/styles/site.css` | Legacy/unused stylesheet at the time of this documentation; verify imports before changing |
 | `src/lib/` | Browser-safe shared utilities and portfolio content modules |
 | `public/hero-frames/` | Hero image-sequence frames served as static assets |
-| `public/contact-background.mp4` | Optimized muted looping background video for the Contact section (add the prepared asset at this path) |
+| `public/contact-background.mp4` | Optimized muted looping background video used behind the Contact section |
 | `public/emerald-engine.jpg` | Check current tree before assuming this exists; the former source asset under `src/assets` was removed |
 | `public/` | Static public assets such as favicon, social preview and robots/sitemap files |
 | `.github/workflows/deploy-pages.yml` | GitHub Pages build and deployment workflow |

@@ -1,12 +1,11 @@
 ## 2026-11-02 — Add cinematic video background to Contact
 
 - **Request:** Use the supplied `contact.mp4` as the Contact section background.
-- **Changed:** Added a muted, looping, inline video layer to the Contact section, with a dark emerald overlay and responsive cover sizing. The page references `public/contact-background.mp4` through Vite's base URL.
-- **Media preparation:** The supplied 1920×1080, 24 FPS, 120-second H.264 source was re-encoded to 1280×720 H.264 at 24 FPS, with audio removed and fast-start metadata. The optimized file is approximately 6.4 MB.
+- **Changed:** Added a muted, looping, inline video layer to the Contact section, with a dark emerald overlay and responsive cover sizing. The video is served from `public/contact-background.mp4` using Vite's base URL.
+- **Media preparation:** Re-encoded the supplied 1920×1080, 24 FPS, 120-second H.264 source to 1280×720 H.264 at 24 FPS, removed audio and enabled fast-start metadata. Final asset: 6,618,482 bytes (about 6.3 MiB).
 - **Preserved:** The Home → Work → About → Lab JPEG scroll sequence and all existing Contact copy, links and navigation.
-- **Asset status:** The optimized video is prepared locally but is not yet in the GitHub repository. Place it at `public/contact-background.mp4` before the background can appear on the live site.
-- **Validation:** Verified the optimized MP4 metadata and duration. No app build, lint, browser test or deployment was run.
-- **Commit:** `c2a345668256c2feaa6ba5ea43e313ba338eb28f` (source integration; optimized media file still awaiting upload).
+- **Validation:** Confirmed the video blob exists in the main branch at `public/contact-background.mp4`. GitHub Actions run [#48](https://github.com/GlitchedPhoenix38/portfolioabdullah/actions/runs/41498105497) completed successfully; both static build and Pages deployment jobs passed. No separate manual browser playback test was performed.
+- **Commits:** Source integration `c2a345668256c2feaa6ba5ea43e313ba338eb28f`; media upload `edb47bbfda9dc9d348f583084d5253c4b5d6f5cc`.
 
 ## 2026-11-02 — Extend the JPEG hero sequence through Lab
 
