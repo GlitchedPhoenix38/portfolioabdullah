@@ -55,7 +55,6 @@ export function HeroSequence({
   const prioritySetRef = useRef<Set<number>>(new Set());
   const requestedFrameRef = useRef(1);
   const lastDrawnFrameRef = useRef(-1);
-  const lastDrawnFallbackRef = useRef(-1);
   const lastEvictFrameRef = useRef(1);
   const rafRef = useRef<number | null>(null);
   const destroyedRef = useRef(false);
@@ -97,7 +96,6 @@ export function HeroSequence({
     const prioritySet = prioritySetRef.current;
     requestedFrameRef.current = 1;
     lastDrawnFrameRef.current = -1;
-    lastDrawnFallbackRef.current = -1;
     lastEvictFrameRef.current = 1;
     setReady(false);
 
@@ -128,36 +126,6 @@ export function HeroSequence({
       setData("heroDrawn", String(index));
     };
 
-    const findNearest = (target: number) => {
-      // Only search the cache window. A full 483-frame scan on every scroll
-      // frame is wasted work, and a very distant frame looks worse than the
-      // poster while the requested frame is loading.
-      const maxDistance = Math.min(
-        total,
-        window.innerWidth < MOBILE_BREAKPOINT ? 48 : 96,
-      );
-
-      for (let offset = 0; offset <= maxDistance; offset += 1) {
-        const left = target - offset;
-        const right = target + offset;
-
-        if (left >= 1 && loadedRef.current[left] && imagesRef.current[left]) {
-          return { image: imagesRef.current[left] as HTMLImageElement, index: left };
-        }
-
-        if (
-          offset > 0 &&
-          right <= total &&
-          loadedRef.current[right] &&
-          imagesRef.current[right]
-        ) {
-          return { image: imagesRef.current[right] as HTMLImageElement, index: right };
-        }
-      }
-
-      return null;
-    };
-
     const renderCurrent = (force = false) => {
       if (destroyedRef.current || reducedRef.current) return;
 
@@ -172,7 +140,6 @@ export function HeroSequence({
         if (!force && lastDrawnFrameRef.current === requested) return;
         draw(exact, requested);
         lastDrawnFrameRef.current = requested;
-        lastDrawnFallbackRef.current = -1;
         return;
       }
 
@@ -200,7 +167,6 @@ export function HeroSequence({
       context.imageSmoothingEnabled = true;
       context.imageSmoothingQuality = "high";
       lastDrawnFrameRef.current = -1;
-      lastDrawnFallbackRef.current = -1;
       renderCurrent(true);
     };
 
