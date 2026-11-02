@@ -1,30 +1,12 @@
-## 2026-11-02 — Remove redundant JPEG sequence from deployed assets
+## 2026-11-02 — Restore JPEG-based hero sequence
 
-- **Request:** Eliminate the duplicate hero asset setup while keeping the user's verified 4 MB MP4.
-- **Changed:** Kept `public/hero-sequence.mp4` unchanged. Moved the first JPEG frame to `public/hero-poster.jpg`, updated `src/routes/index.tsx` to use that poster, and removed the 482 remaining JPEG frames plus the old `public/hero-frames/` directory from the branch.
-- **Preserved:** The MP4 blob and its exact contents, scroll-scrubbing implementation, hero overlay/content, and a static poster fallback. This is an asset cleanup, not a video re-encode.
-- **Validation:** Confirmed the MP4 remains the same existing repository asset; verified the poster source exists and the route reference is updated. No lint, tests, production build, browser test or Pages deployment check was run.
-- **Commit:** Pending.
+- **Request:** Return the portfolio to the last working-code version that used the 483 JPEG frames instead of the MP4 video.
+- **Changed:** Restored `src/components/HeroSequence.tsx` and the hero-related CSS from commit `eefa302d896496df175d3332cf54c98429fe22dd`. Restored all 483 original files under `public/hero-frames/`. Updated the Home route to use `frame_000001.jpg` as its poster again. Removed `public/hero-sequence.mp4` and the temporary `public/hero-poster.jpg`.
+- **Preserved:** Other current portfolio content and sections; only the hero implementation and its assets were rolled back to the JPEG-based version.
+- **Validation:** Verified the source snapshot and all 483 frame blobs exist in Git history before restoring. No local build, browser test or live deployment check was run.
+- **Reference commit:** `eefa302d896496df175d3332cf54c98429fe22dd`. **Restore commit:** pending.
 
 # Changelog
-
-## 2026-11-02 — Prepare video-based scroll-scrubbed hero
-
-- **Request:** Replace the unreliable 483-individual-JPEG runtime loader with a video-based hero sequence.
-- **Changed:** Reworked `src/components/HeroSequence.tsx` to map scroll progress to a timestamp in one H.264 video and draw decoded video frames to the canvas. Added a hidden decoder element in `src/styles.css`. The video is encoded all-intra (every frame is a keyframe) to support frequent seeking. Prepared `hero-sequence.mp4` from all 483 original JPEGs: 1280×720, 30 fps, 16.1 seconds, H.264, approximately 13 MB.
-- **Preserved:** The original 483 JPEG source frames, frame count, scroll range, hero poster and overlaid hero content.
-- **Important deployment dependency:** The MP4 is available as a generated file in the current conversation, but has not yet been committed to `public/hero-sequence.mp4`. The connected GitHub file-write action accepts UTF-8 text files, not binary video uploads. The code expects that exact public path; the video asset must be uploaded there before the new hero can work on the live site.
-- **Validation:** Verified the generated MP4 with ffprobe (H.264, 1280×720, 30 fps, 483 frames, 16.1 seconds). Source edits were committed. No local lint, tests, production build, browser test or live deployment check has been run.
-- **Commit(s):** Video renderer `ebff74e15bd8be3b9ca37e2bc2041ced8a367fd8`; decoder CSS `55df2624e944aaa9169ef7d65c0a859c29309216`; final-frame timestamp `b927b5069d467ad32a100b8a151ac930239bf84c`.
-
-## 2026-11-02 — Stop hero sequence from jumping between cached frames
-
-- **Request:** Investigate intermittent frame skipping where the hero appears to jump from the requested frame to much later frames (for example, around 110 to 135 to 180).
-- **Cause found:** The renderer selected and drew the nearest already-cached frame whenever the exact requested frame had not finished loading. During scrolling, that could display a much later or earlier frame instead of preserving the current visual position.
-- **Changed:** In `src/components/HeroSequence.tsx`, removed nearest-cached-frame substitution. The canvas now holds the last successfully drawn frame until the exact requested frame is decoded, then draws that exact frame. Removed the now-unused nearest-frame search logic.
-- **Preserved:** All 483 JPEG assets, their numbering and image content, scroll-to-frame mapping, and sequence duration.
-- **Validation:** Re-fetched the updated source after committing. No local lint, tests, production build, browser test or live deployment check has been run yet.
-- **Commit(s):** Renderer change `84ec1691f2ba94ee86a3003296622bee140926b0`; obsolete fallback removal `eefa302d896496df175d3332cf54c98429fe22dd`.
 
 ## 2026-11-02 — Prevent dark flashes during hero frame loading
 

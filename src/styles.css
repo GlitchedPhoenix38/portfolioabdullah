@@ -89,13 +89,6 @@
  background:#000;
  isolation:isolate;
 }
-.hero-sequence__decoder {
- position:absolute;
- width:1px;
- height:1px;
- opacity:0;
- pointer-events:none;
-}
 .hero-sequence__poster,
 .hero-sequence__canvas {
  position:absolute;
