@@ -1,5 +1,14 @@
 # Changelog
 
+## 2026-11-02 — Prepare video-based scroll-scrubbed hero
+
+- **Request:** Replace the unreliable 483-individual-JPEG runtime loader with a video-based hero sequence.
+- **Changed:** Reworked `src/components/HeroSequence.tsx` to map scroll progress to a timestamp in one H.264 video and draw decoded video frames to the canvas. Added a hidden decoder element in `src/styles.css`. The video is encoded all-intra (every frame is a keyframe) to support frequent seeking. Prepared `hero-sequence.mp4` from all 483 original JPEGs: 1280×720, 30 fps, 16.1 seconds, H.264, approximately 13 MB.
+- **Preserved:** The original 483 JPEG source frames, frame count, scroll range, hero poster and overlaid hero content.
+- **Important deployment dependency:** The MP4 is available as a generated file in the current conversation, but has not yet been committed to `public/hero-sequence.mp4`. The connected GitHub file-write action accepts UTF-8 text files, not binary video uploads. The code expects that exact public path; the video asset must be uploaded there before the new hero can work on the live site.
+- **Validation:** Verified the generated MP4 with ffprobe (H.264, 1280×720, 30 fps, 483 frames, 16.1 seconds). Source edits were committed. No local lint, tests, production build, browser test or live deployment check has been run.
+- **Commit(s):** Video renderer `ebff74e15bd8be3b9ca37e2bc2041ced8a367fd8`; decoder CSS `55df2624e944aaa9169ef7d65c0a859c29309216`; final-frame timestamp `b927b5069d467ad32a100b8a151ac930239bf84c`.
+
 ## 2026-11-02 — Stop hero sequence from jumping between cached frames
 
 - **Request:** Investigate intermittent frame skipping where the hero appears to jump from the requested frame to much later frames (for example, around 110 to 135 to 180).
