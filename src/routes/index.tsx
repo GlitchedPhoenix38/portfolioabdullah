@@ -42,6 +42,8 @@ function ProjectArt({ index }: { index: number }) {
  </svg><span className="art-caption">{['WAKE → LISTEN → REASON → RESPOND','LOCAL AUDIO / SEGMENTED TRANSCRIPTION','TEXT → SYNTHESIS → WAVEFORM','ONE WORKFLOW / TWO RUNTIMES','PROVIDER-AGNOSTIC ARCHITECTURE','ISOLATED SPACES / ANDROID'][index]}</span></div>;
 }
 function Portfolio() {
+ const [loaderVisible,setLoaderVisible] = useState(true);
+ const [loaderLeaving,setLoaderLeaving] = useState(false);
  const [menuOpen,setMenuOpen] = useState(false);
  const [active,setActive] = useState('top');
  const [selected,setSelected] = useState<Project | null>(null);
@@ -64,6 +66,11 @@ function Portfolio() {
   scroll();window.addEventListener('scroll',scroll,{passive:true});window.addEventListener('pointermove',move,{passive:true});document.addEventListener('pointerleave',leave);window.addEventListener('keydown',close);
   return()=>{observer.disconnect();cancelAnimationFrame(frame);window.removeEventListener('scroll',scroll);window.removeEventListener('pointermove',move);document.removeEventListener('pointerleave',leave);window.removeEventListener('keydown',close)};
  },[menuOpen]);
+ useEffect(()=>{
+  const leaveTimer=window.setTimeout(()=>setLoaderLeaving(true),3000);
+  const removeTimer=window.setTimeout(()=>setLoaderVisible(false),3700);
+  return()=>{window.clearTimeout(leaveTimer);window.clearTimeout(removeTimer)};
+ },[]);
  const openProject=(project:Project,event?: React.MouseEvent<HTMLButtonElement>)=>{if(event)triggerRef.current=event.currentTarget;setSelected(project)};
  const tilt=(event:PointerEvent<HTMLElement>)=>{
   if(event.pointerType!=='mouse'||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
@@ -78,6 +85,11 @@ function Portfolio() {
  const resetMagnetic = (event: PointerEvent<HTMLAnchorElement>) => { event.currentTarget.style.translate=''; };
  const selectedIndex=selected?projects.indexOf(selected):-1;
  return <div className="portfolio" ref={rootRef}>
+  {loaderVisible&&<div className={`site-loader${loaderLeaving?' site-loader--leaving':''}`} role="status" aria-live="polite">
+   <img className="site-loader__image" src={`${import.meta.env.BASE_URL}loader-sanctuary.jpg`} alt="" fetchPriority="high"/>
+   <div className="site-loader__shade"/>
+   <div className="site-loader__content"><span className="site-loader__eyebrow">INDEPENDENT BY NATURE</span><h2>Preparing the experience<span>.</span></h2><p>Thoughtfully built. Almost ready.</p><div className="site-loader__track"><span/></div><span className="site-loader__foot">ABDULLAH ANSARI <i/> PORTFOLIO / 2026</span></div>
+  </div>}
   <a href="#main" className="skip-link">Skip to content</a><div className="progress-line" aria-hidden="true"/><div ref={cursorRef} className="cursor-reticle" aria-hidden="true"/><div className="initial-signature" aria-hidden="true"><span>aa.</span></div>
   <header className="floating-header"><div className="nav-shell"><a className="brand" href="#top" aria-label="Abdullah Ansari home"><span className="brand-mark">aa.</span><span className="brand-label">ABDULLAH ANSARI<span>Independent developer</span></span></a><nav className="desktop-nav" aria-label="Main navigation">{navigation.map(([id,label])=><Button key={id} variant="navigation" asChild><a href={`#${id}`} aria-current={active===id?'location':undefined}>{label}</a></Button>)}</nav><ExternalLink href={github} className="header-github"><Github size={14}/>GitHub</ExternalLink><Button ref={menuRef} variant="glass" className="phone-toggle icon-action" aria-label={menuOpen?'Close navigation':'Open navigation'} aria-expanded={menuOpen} aria-controls="phone-navigation" onClick={()=>setMenuOpen(!menuOpen)}>{menuOpen?<X/>:<Menu/>}</Button></div>{menuOpen&&<nav className="phone-nav" id="phone-navigation" aria-label="Phone navigation">{navigation.map(([id,label])=><Button variant="navigation" asChild key={id}><a href={`#${id}`} aria-current={active===id?'location':undefined} onClick={()=>setMenuOpen(false)}>{label}<ArrowUpRight/></a></Button>)}<Button variant="navigation" asChild><ExternalLink href={github}>GitHub</ExternalLink></Button></nav>}</header>
   <main id="main">
