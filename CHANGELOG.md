@@ -1,3 +1,10 @@
+## 2026-11-03 — Add first-stage sanctuary loading screen
+
+- Added a full-screen loading overlay using `public/loader-sanctuary.jpg`.
+- Overlay remains for 3 seconds after the portfolio mounts, then fades away over 700ms.
+- Added restrained loading text and an indeterminate progress line as a temporary first-stage treatment; no background video or final custom animation yet.
+- Updated README documentation. Source inspected; no local build, browser or device test run. GitHub Actions will validate the production build.
+
 ## 2026-11-03 — Apply extra-slow hero scrubbing on mobile
 
 - **Request:** Keep laptop/desktop hero scrolling at its current speed, but slow the animation a little more on mobile.
