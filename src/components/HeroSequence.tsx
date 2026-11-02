@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 
-const VIDEO_DURATION = 16.1;
+const VIDEO_DURATION = 16.066667;
 
 type HeroSequenceProps = {
   poster: string;
