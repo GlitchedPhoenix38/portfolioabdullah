@@ -101,30 +101,31 @@ The active page imports `HeroSequence` from `@/components/HeroSequence`. Do not 
 
 ## 5. Hero image sequence
 
-The Home hero uses an image sequence from the separate animation project.
+The Home hero uses a scroll-scrubbed H.264 video generated from the original image sequence. The original JPEG frames are retained as source/backup assets.
 
 Known sequence details:
 
-- 483 JPEG frames.
-- Original frame dimensions: 1280 × 720 (16:9).
-- Sequential filenames: `frame_000001.jpg` through `frame_000483.jpg`.
-- Public asset directory: `public/hero-frames/`.
+- 483 source JPEG frames, each 1280 × 720 (16:9), retained in `public/hero-frames/`.
+- Runtime asset: `public/hero-sequence.mp4` (H.264, 1280 × 720, 30 fps, 16.1 seconds, all-intra frames for efficient seeking).
+- The video is scrubbed by setting its timestamp from the scroll progress; a canvas displays decoded frames.
+- The MP4 must exist at `public/hero-sequence.mp4` before deployment. It is currently prepared locally but has not yet been added to GitHub because the available repository file action supports text files only.
 - The hero poster/fallback currently points to the first frame using Vite's base URL:
   `\`\`\`tsx
   poster={`${import.meta.env.BASE_URL}hero-frames/frame_000001.jpg`}
   \`\`\`
-- The image sequence is intended to be the actual hero background, with existing hero content rendered above it.
+- The video is intended to be the actual hero background, with existing hero content rendered above it.
 - While a requested frame is still loading, the canvas keeps the last successfully drawn frame visible. It must not be hidden to reveal the first-frame poster, because frame 1 is almost black and would look like a dark flash.
 - The renderer must draw the exact requested frame when it is ready; it must not substitute an arbitrary nearest cached frame. Nearest-frame substitution makes the animation visibly jump ahead or backward during loading.
 
 Asset URLs must use `import.meta.env.BASE_URL` (or an equivalent base-aware helper), not hard-coded root paths. This matters because the production site is deployed under `/portfolioabdullah/`, while local development uses `/`.
 
 When changing the sequence:
-1. Preserve sequential frame names and verify all expected frames exist.
-2. Check the poster and canvas stacking order.
-3. Test loading, resizing, fast scrolling and reduced-motion behaviour.
-4. Confirm the final frame and sticky/pin release remain synchronised.
-5. Verify the frames are present in the production output.
+1. Preserve the 483 source JPEGs and verify all expected frames exist.
+2. Keep the runtime MP4 in sync with the source frames and verify its codec, frame rate, duration and keyframe layout.
+3. Check the poster, video decoder and canvas stacking order.
+4. Test seeking, resizing, fast scrolling and reduced-motion behaviour.
+5. Confirm the final frame and sticky/pin release remain synchronised.
+6. Verify `hero-sequence.mp4` is present in the production output.
 
 ## 6. Local development
 
