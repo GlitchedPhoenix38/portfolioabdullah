@@ -70,6 +70,7 @@ export function HeroSequence({
   const [reduced, setReduced] = useState(false);
   const [autoScrollStarted, setAutoScrollStarted] = useState(false);
   const autoScrollRafRef = useRef<number | null>(null);
+  const previousScrollBehaviorRef = useRef<string | null>(null);
 
   const startAutoScroll = () => {
     if (autoScrollStarted || reduced || !wrapperRef.current) return;
@@ -83,6 +84,12 @@ export function HeroSequence({
     if (distance <= 0) return;
 
     setAutoScrollStarted(true);
+    // The page uses CSS scroll-behavior:smooth globally. Disable it while
+    // driving the animation frame-by-frame, otherwise every frame starts a
+    // competing native smooth-scroll operation and autoplay appears frozen.
+    const root = document.documentElement;
+    previousScrollBehaviorRef.current = root.style.scrollBehavior;
+    root.style.scrollBehavior = "auto";
     const duration = 10000;
     const startTime = performance.now();
     const animate = (now: number) => {
@@ -96,6 +103,8 @@ export function HeroSequence({
         autoScrollRafRef.current = window.requestAnimationFrame(animate);
       } else {
         autoScrollRafRef.current = null;
+        root.style.scrollBehavior = previousScrollBehaviorRef.current ?? "";
+        previousScrollBehaviorRef.current = null;
       }
     };
     autoScrollRafRef.current = window.requestAnimationFrame(animate);
@@ -500,6 +509,10 @@ export function HeroSequence({
       if (autoScrollRafRef.current !== null) {
         window.cancelAnimationFrame(autoScrollRafRef.current);
         autoScrollRafRef.current = null;
+      }
+      if (previousScrollBehaviorRef.current !== null) {
+        document.documentElement.style.scrollBehavior = previousScrollBehaviorRef.current;
+        previousScrollBehaviorRef.current = null;
       }
     };
     window.addEventListener("wheel", stopAutoScroll, { passive: true });
