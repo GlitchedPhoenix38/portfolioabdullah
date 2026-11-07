@@ -459,6 +459,10 @@ export function HeroSequence({
     resizeObserver?.observe(canvas);
 
     return () => {
+      if (autoScrollRafRef.current !== null) {
+        window.cancelAnimationFrame(autoScrollRafRef.current);
+        autoScrollRafRef.current = null;
+      }
       destroyedRef.current = true;
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onResize);
@@ -490,6 +494,26 @@ export function HeroSequence({
       canvas.height = 0;
     };
   }, [endAt, frameDirectory, priorityFrames, scrubDistance, total]);
+
+  useEffect(() => {
+    const stopAutoScroll = () => {
+      if (autoScrollRafRef.current !== null) {
+        window.cancelAnimationFrame(autoScrollRafRef.current);
+        autoScrollRafRef.current = null;
+      }
+    };
+    window.addEventListener("wheel", stopAutoScroll, { passive: true });
+    window.addEventListener("touchstart", stopAutoScroll, { passive: true });
+    window.addEventListener("pointerdown", stopAutoScroll);
+    window.addEventListener("keydown", stopAutoScroll);
+    return () => {
+      stopAutoScroll();
+      window.removeEventListener("wheel", stopAutoScroll);
+      window.removeEventListener("touchstart", stopAutoScroll);
+      window.removeEventListener("pointerdown", stopAutoScroll);
+      window.removeEventListener("keydown", stopAutoScroll);
+    };
+  }, []);
 
   return (
     <section
