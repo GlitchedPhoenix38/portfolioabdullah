@@ -143,18 +143,18 @@
 }
 
 
-/* Extend the JPEG sequence behind the page until the About section. */
+/* The sequence pins from the hero through the Lab section. Content above
+   the page sections fades away before scrolling onward. */
 .hero.hero-sequence { z-index:0; }
 .hero-sequence__content {
  opacity:var(--hero-content-opacity,1);
- transition:opacity .12s linear;
+ transition:opacity .18s linear;
 }
 .identity-strip,
 main > .section {
  position:relative;
  z-index:1;
 }
-
 
 /* First-stage cinematic loading screen: static sanctuary artwork + timed reveal. */
 .site-loader { position:fixed; inset:0; z-index:1000; overflow:hidden; display:grid; place-items:center; background:#030b09; opacity:1; visibility:visible; transition:opacity .7s cubic-bezier(.22,1,.36,1),visibility .7s; }
