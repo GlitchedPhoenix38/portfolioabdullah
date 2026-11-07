@@ -156,20 +156,3 @@ main > .section {
  z-index:1;
 }
 
-/* First-stage cinematic loading screen: static sanctuary artwork + timed reveal. */
-.site-loader { position:fixed; inset:0; z-index:1000; overflow:hidden; display:grid; place-items:center; background:#030b09; opacity:1; visibility:visible; transition:opacity .7s cubic-bezier(.22,1,.36,1),visibility .7s; }
-.site-loader--leaving { opacity:0; visibility:hidden; pointer-events:none; }
-.site-loader__image { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center; transform:scale(1.015); }
-.site-loader__shade { position:absolute; inset:0; background:linear-gradient(90deg,rgba(2,9,7,.72),rgba(2,9,7,.26) 55%,rgba(2,9,7,.4)),linear-gradient(0deg,rgba(2,9,7,.82),transparent 55%,rgba(2,9,7,.22)); }
-.site-loader__content { position:relative; z-index:1; width:min(560px,calc(100% - 48px)); margin-top:20vh; color:#f1f5ef; }
-.site-loader__eyebrow,.site-loader__foot { font-family:var(--font-mono); font-size:9px; letter-spacing:.16em; color:#a8c7b7; }
-.site-loader__content h2 { margin-top:18px; font-family:var(--font-editorial); font-size:clamp(42px,7vw,76px); line-height:1; font-weight:400; letter-spacing:-.025em; }
-.site-loader__content h2 span { color:#9de6c4; }
-.site-loader__content p { margin-top:13px; color:rgba(231,241,234,.72); font-size:12px; letter-spacing:.04em; }
-.site-loader__track { width:min(280px,100%); height:2px; margin-top:34px; background:rgba(220,245,230,.2); overflow:hidden; }
-.site-loader__track span { display:block; width:35%; height:100%; background:#9de6c4; animation:loader-travel 1.35s ease-in-out infinite; }
-.site-loader__foot { display:flex; align-items:center; gap:10px; margin-top:30px; font-size:8px; color:rgba(220,239,226,.65); }
-.site-loader__foot i { width:3px; height:3px; border-radius:50%; background:#9de6c4; }
-@keyframes loader-travel { from { transform:translateX(-110%); } to { transform:translateX(310%); } }
-@media(max-width:600px) { .site-loader__image { object-position:58% center; } .site-loader__content { margin-top:30vh; } }
-@media(prefers-reduced-motion:reduce) { .site-loader,.site-loader--leaving { transition:none; } .site-loader__track span { animation:none; width:100%; } }
