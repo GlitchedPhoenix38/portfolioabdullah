@@ -36,7 +36,8 @@
 @media(max-width:430px) { .floating-signal { display: none; } .hero-media { object-position: 58% center; } }
 @media(prefers-reduced-motion:reduce) { .hero-media, .studio-button, .work-card { translate: none!important; transform: none!important; } }
 
-/* Exact Obsidian Emerald foundation, shared continuously across the portfolio. */
+/* Shared Obsidian Emerald palette. Keep the page surface quiet so the hero
+   sequence remains the only full-screen moving visual. */
 :root {
  --obsidian: oklch(.154483 .009261 223.6368);
  --graphite-green: oklch(.211650 .015765 196.0243);
@@ -52,21 +53,20 @@
  --border: color-mix(in oklch, var(--ice-mint) 13%, transparent);
  --glass: color-mix(in oklch, var(--graphite-green) 72%, transparent);
  --reflection: linear-gradient(135deg, color-mix(in oklch,var(--ice-mint) 5%,transparent),transparent 43%,color-mix(in oklch,var(--vibrant-teal) 4%,transparent));
- --ambient-x: 72%; --ambient-y: 28%; --ambient-scroll: 0;
- --environment: radial-gradient(ellipse 95% 20% at 85% 9%,color-mix(in oklch,var(--forest-emerald) 22%,transparent),transparent 75%),radial-gradient(ellipse 110% 22% at 5% 44%,color-mix(in oklch,var(--vibrant-teal) 7%,transparent),transparent 78%),radial-gradient(ellipse 100% 24% at 90% 80%,color-mix(in oklch,var(--forest-emerald) 25%,transparent),transparent 80%);
+ --environment: var(--background);
 }
-.portfolio { position:relative; isolation:isolate; background:var(--environment),var(--background); }
-.portfolio::before { content:''; position:fixed; inset:0; z-index:-1; pointer-events:none; background:radial-gradient(ellipse 85% 65% at var(--ambient-x) var(--ambient-y),color-mix(in oklch,var(--vibrant-teal) 4%,transparent),transparent 85%); opacity:calc(.3 + var(--ambient-scroll) * .4); }
-.portfolio::after { content:''; position:fixed; inset:0; z-index:65; pointer-events:none; opacity:.018; background-image:radial-gradient(color-mix(in oklch,var(--ice-mint) 18%,transparent) .45px,transparent .65px); background-size:4px 4px; }
+.portfolio { position:relative; isolation:isolate; background:var(--background); }
+.portfolio::before { content:none; }
+.portfolio::after { content:none; }
 .about-section { background:transparent; }
 .section { border-top-color:color-mix(in oklch,var(--ice-mint) 7%,transparent); }
 .work-card,.lab-card,.technology { backdrop-filter:none; -webkit-backdrop-filter:none; box-shadow:inset 0 1px 0 color-mix(in oklch,var(--ice-mint) 3%,transparent); }
 .project-dialog { background:var(--graphite-green); }
 .dialog-top { background:var(--graphite-green); }
-.hero::before { background:linear-gradient(90deg,var(--background),color-mix(in oklch,var(--background) 80%,transparent) 28%,transparent 80%),linear-gradient(0deg,var(--background),transparent 26%); }
-.hero { min-height:670px; }
-@media(max-width:760px) { .hero {min-height:790px;} .hero::before {background:linear-gradient(180deg,var(--background),color-mix(in oklch,var(--background) 85%,transparent) 30%,color-mix(in oklch,var(--background) 40%,transparent) 70%,var(--background));} }
-@media(prefers-reduced-motion:reduce) { .portfolio::before { background:none; } }
+/* The old static hero artwork is intentionally disabled; the JPEG sequence owns
+   the full hero background and its single scrim handles text contrast. */
+.hero:not(.hero-sequence)::before { display:none; }
+.hero:not(.hero-sequence) .hero-media { display:none; }
 
 /* Hero scroll sequence. The stage stays full-viewport; the 58px header
    clearance is applied to the hero content and subtracted from the pin travel. */
