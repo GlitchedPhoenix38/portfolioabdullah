@@ -68,6 +68,38 @@ export function HeroSequence({
 
   const [ready, setReady] = useState(false);
   const [reduced, setReduced] = useState(false);
+  const [autoScrollStarted, setAutoScrollStarted] = useState(false);
+  const autoScrollRafRef = useRef<number | null>(null);
+
+  const startAutoScroll = () => {
+    if (autoScrollStarted || reduced || !wrapperRef.current) return;
+    const wrapper = wrapperRef.current;
+    const stage = wrapper.querySelector<HTMLElement>(".hero-sequence__sticky");
+    if (!stage) return;
+
+    const startY = window.scrollY;
+    const wrapperTop = wrapper.getBoundingClientRect().top + startY;
+    const distance = Math.max(0, wrapperTop + wrapper.offsetHeight - stage.offsetHeight - startY);
+    if (distance <= 0) return;
+
+    setAutoScrollStarted(true);
+    const duration = 10000;
+    const startTime = performance.now();
+    const animate = (now: number) => {
+      const progress = clamp((now - startTime) / duration, 0, 1);
+      // Smooth ease-in-out, with a steady, unhurried middle section.
+      const eased = progress < 0.5
+        ? 4 * progress * progress * progress
+        : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+      window.scrollTo(0, startY + distance * eased);
+      if (progress < 1) {
+        autoScrollRafRef.current = window.requestAnimationFrame(animate);
+      } else {
+        autoScrollRafRef.current = null;
+      }
+    };
+    autoScrollRafRef.current = window.requestAnimationFrame(animate);
+  };
 
   const total = Math.max(1, frameCount);
   const style = scrubDistance ? ({ "--hero-scrub": scrubDistance } as CSSProperties) : undefined;
@@ -484,6 +516,17 @@ export function HeroSequence({
         <canvas className="hero-sequence__canvas" ref={canvasRef} aria-hidden="true" />
         <div className="hero-sequence__scrim" aria-hidden="true" />
         <div className="hero-sequence__content">{children}</div>
+        {!autoScrollStarted && !reduced && (
+          <button
+            className="hero-sequence__autoplay"
+            type="button"
+            onClick={startAutoScroll}
+            aria-label="Automatically scroll through the cinematic hero animation"
+          >
+            <span className="hero-sequence__autoplay-icon" aria-hidden="true">↓</span>
+            <span>PLAY THE JOURNEY</span>
+          </button>
+        )}
       </div>
     </section>
   );
